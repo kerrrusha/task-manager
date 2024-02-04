@@ -5,6 +5,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(17 24 39);
+  height: 100vh;
+}
+
+#root {
+  height: 100%;
 }
 
 code {
@@ -15,7 +21,8 @@ code {
 .button {
   padding: 0.5rem;
   border-radius: 9999px;
-  background-color: #635fc7;
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55);
   color: white;
   font-weight: bold;
 }
@@ -35,4 +42,51 @@ button {
 
 .transparent {
   background: transparent;
+}
+
+.bg-secondary {
+  background-color: rgb(31 41 55);
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.main-board {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  color: white;
+}
+
+.sidebar {
+  width: 20vw;
+  background-color: rgb(31 41 55);
+  padding: 1vw;
+}
+
+.sidebar * {
+  margin: 1vh 0;
+}
+
+.sidebar button {
+  background-color: transparent;
+  padding: 0 1vw;
+}
+
+.sidebar button.active {
+  background-color: #a6bdff;
+}
+
+.site-name {
+  color: white;
+  font-weight: bold;
+  font-size: 1.5em;
+  margin-left: 2vw;
 }

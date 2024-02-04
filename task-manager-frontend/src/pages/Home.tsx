@@ -1,12 +1,11 @@
 import Header from '../components/Header';
+import KanbanBoard from "../components/KanbanBoard";
 
 export default function Home() {
     return (
-      <>
+      <div className="home">
           <Header />
-          <div className="flex space-x-4 items-center md:space-x-6">
-              <button className="button">+ Add New Task</button>
-          </div>
-      </>
+          <KanbanBoard />
+      </div>
     );
 }
