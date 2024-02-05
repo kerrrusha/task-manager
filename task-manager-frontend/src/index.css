@@ -66,21 +66,10 @@ button {
 }
 
 .sidebar {
-  width: 20vw;
+  width: 230px;
   background-color: rgb(31 41 55);
-}
-
-.sidebar * {
-  margin: 1vh 0;
-}
-
-.sidebar button {
-  background-color: transparent;
-  padding: 0 1vw;
-}
-
-.sidebar button.active {
-  background-color: #a6bdff;
+  display: flex;
+  flex-direction: column;
 }
 
 .site-name {
@@ -97,4 +86,17 @@ button {
   border-top-right-radius: 9999px;
   transition-timing-function: cubic-bezier(.4,0,.2,1);
   transition-duration: .5s;
+  background-color: transparent;
+  padding: 10px 1vw;
+  margin: 0 15px 0 0;
+  min-height: 70px;
+  width: 220px;
+}
+
+.sidebar-button p {
+  margin: 0;
+}
+
+.sidebar-button.active {
+  background-color: #a6bdff;
 }

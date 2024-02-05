@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
 
 const DARK : string = 'dark';
-const LIGHT : string = 'light';
+export const LIGHT : string = 'light';
 const THEME : string = 'theme';
 
-export default function useDarkMode() {
+export default function useDarkMode() : [string, Function] {
     const [targetTheme, setTargetTheme] = useState(localStorage.theme);
 
     const currentTheme = targetTheme === DARK ? LIGHT : DARK;
@@ -15,7 +15,7 @@ export default function useDarkMode() {
         root.classList.add(targetTheme);
 
         localStorage.setItem(THEME, targetTheme);
-    })
+    }, [targetTheme, setTargetTheme])
 
     return [currentTheme, setTargetTheme];
 }

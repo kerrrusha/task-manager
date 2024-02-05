@@ -3,7 +3,6 @@ import {useState} from "react";
 
 export default function KanbanBoard() {
     const [activeIndex, setActiveIndex] = useState(0);
-    console.log(`KanbanBoard: ${activeIndex}`);
 
     return (
         <div className="main-board">

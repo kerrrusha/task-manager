@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import './output.css';
 import './index.css';
+import './tailwind.css';
+import './bootstrap.css';
 import store from "./redux/store";
 import {Provider} from "react-redux";
 
