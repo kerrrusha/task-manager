@@ -1,6 +1,4 @@
 import SidebarButton from "./SidebarButton";
-import {setActiveButton} from "../redux/actions";
-import {connect, ConnectedProps} from "react-redux";
 import React from "react";
 
 const data = [
@@ -10,36 +8,22 @@ const data = [
 ]
 
 interface SidebarProps {
-    activeKey : number
+    activeIndex : number
+    callback : Function
 }
 
-function Sidebar({activeKey} : SidebarProps) {
-    console.log(activeKey);
-
+export default function Sidebar({activeIndex, callback} : SidebarProps) {
+    console.log(`Sidebar: ${activeIndex}`);
     return (
         <div className="sidebar">
-            <h1 className="font-bold">ALL BOARDS (<span id="boards-count">{data.length}</span>)</h1>
-            <ul>
+            <h5 className="font-bold mb-4 mx-3 mt-3">ALL BOARDS (<span id="boards-count">{data.length}</span>)</h5>
+            <ul className="p-0 m-0">
                 {data.map((e, index) => (
                     <li key={index}>
-                        <SidebarButton name={e.name} url={e.url} key_={index} active_={activeKey === index}/>
+                        <SidebarButton name={e.name} url={e.url} onClickCallback={() => callback(index)} active={index === activeIndex} />
                     </li>)
                 )}
             </ul>
         </div>
     );
 }
-
-const mapStateToProps = (state : any) => ({
-    activeKey: state.sidebar.activeKey
-});
-
-const mapDispatchToProps = {
-    setActiveButton
-};
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-export default connector(Sidebar) as React.FC<PropsFromRedux>;

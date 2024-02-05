@@ -1,30 +1,19 @@
-import {useState} from "react";
-import {setActiveButton} from "../redux/actions";
-import {connect} from "react-redux";
-
 interface SidebarButtonProps {
     name: string;
     url: string;
-    key_: number;
-    active_?: boolean;
+    onClickCallback: Function;
+    active?: boolean;
 }
 
-function SidebarButton({name, url, key_, active_=false} : SidebarButtonProps) {
-    const [active, setActive] = useState(active_);
-    const [key] = useState(key_);
-
+export default function SidebarButton({name, url, onClickCallback, active=false} : SidebarButtonProps) {
     const handleClick = () => {
-        if (active) {
-            return;
-        }
-        setActive(true);
+        console.log(`Navigating to the ${url}`);
 
-        //todo fix redux activeKey (not affects)
-        setActiveButton(key);
+        onClickCallback();
     };
 
     return (
-        <button className={active ? "flex items-center rounded-full active" : "flex items-center rounded-full"} onClick={handleClick}>
+        <button className={active ? "sidebar-button active" : "sidebar-button"} onClick={handleClick}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                  stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round"
@@ -34,9 +23,3 @@ function SidebarButton({name, url, key_, active_=false} : SidebarButtonProps) {
         </button>
     );
 }
-
-const mapDispatchToProps = {
-    setActiveButton
-};
-
-export default connect(null, mapDispatchToProps)(SidebarButton);

@@ -1,12 +1,13 @@
 import Sidebar from "./Sidebar";
-import {setActiveButton} from "../redux/actions";
+import {useState} from "react";
 
 export default function KanbanBoard() {
-    const DEFAULT_ACTIVE_KEY = 0;
+    const [activeIndex, setActiveIndex] = useState(0);
+    console.log(`KanbanBoard: ${activeIndex}`);
 
     return (
         <div className="main-board">
-            <Sidebar activeKey={DEFAULT_ACTIVE_KEY} setActiveButton={setActiveButton}/>
+            <Sidebar activeIndex={activeIndex} callback={setActiveIndex} />
             <div>
                 <div className="flex space-x-4 items-center md:space-x-6">
                     <button className="button">+ Add New Task</button>
