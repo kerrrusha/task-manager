@@ -13,7 +13,7 @@ export default function SidebarButton({name, url, onClickCallback, active=false}
     };
 
     return (
-        <button className={active ? "sidebar-button active" : "sidebar-button"} onClick={handleClick}>
+        <button className={`${active ? "active" : ""} sidebar-button`} onClick={handleClick}>
             <div className="flex">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                      stroke="currentColor" className="w-6 h-6">
