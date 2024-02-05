@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { BellIcon } from '@heroicons/react/24/outline'
 
 function classNames(...classes: string[]): string {
     return classes.filter(Boolean).join(' ');
@@ -8,31 +8,22 @@ function classNames(...classes: string[]): string {
 
 export default function Header() {
     return (
-        <Disclosure as="nav" className="bg-gray-800">
-            {({ open }) => (
+        <Disclosure as="nav" className="background-secondary">
+            {() => (
                 <>
-                    <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+                    <div className="mx-auto px-2 sm:px-6 lg:px-8">
                         <div className="relative flex h-16 items-center justify-between">
                             <div className="flex justify-start">
-                                <div className="flex flex-shrink-0 items-center">
+                                <div className="flex items-center">
                                     <img
                                         className="h-8 w-auto"
                                         src="https://cdn-icons-png.flaticon.com/512/5065/5065589.png"
                                         alt="Task Manager"
                                     />
-                                    <h1 className="site-name">Task Manager</h1>
+                                    <h3 className="font-bold font-sans site-name">Task Manager</h3>
                                 </div>
                             </div>
                             <div className="flex flex-1 absolute inset-y-0 right-0 justify-end pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                                <button
-                                    type="button"
-                                    className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                                >
-                                    <span className="absolute -inset-1.5" />
-                                    <span className="sr-only">View notifications</span>
-                                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                                </button>
-
                                 {/* Profile dropdown */}
                                 <Menu as="div" className="relative ml-3">
                                     <div>
