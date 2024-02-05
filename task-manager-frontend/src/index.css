@@ -18,12 +18,14 @@ code {
     monospace;
 }
 
+nav {
+  z-index: 10;
+}
+
 .button {
   padding: 0.5rem;
   border-radius: 9999px;
   --tw-bg-opacity: 1;
-  background-color: rgb(31 41 55);
-  color: white;
   font-weight: bold;
 }
 
@@ -40,12 +42,12 @@ button {
   border-color: #e5e7eb;
 }
 
-.transparent {
-  background: transparent;
+.border a {
+  text-decoration: none;
 }
 
-.bg-secondary {
-  background-color: rgb(31 41 55);
+.transparent {
+  background: transparent;
 }
 
 .h-100 {
@@ -62,21 +64,19 @@ button {
   display: flex;
   flex-direction: row;
   height: 100%;
-  color: white;
+  width: 100%;
 }
 
 .sidebar {
   width: 230px;
-  background-color: rgb(31 41 55);
   display: flex;
   flex-direction: column;
 }
 
 .site-name {
-  color: white;
   font-weight: bold;
-  font-size: 1.5em;
-  margin-left: 2vw;
+  font-size: 2rem;
+  margin-left: 15px;
 }
 
 .sidebar-button {
@@ -84,19 +84,68 @@ button {
   align-items: center;
   border-bottom-right-radius: 9999px;
   border-top-right-radius: 9999px;
-  transition-timing-function: cubic-bezier(.4,0,.2,1);
-  transition-duration: .5s;
   background-color: transparent;
   padding: 10px 1vw;
   margin: 0 15px 0 0;
-  min-height: 70px;
+  min-height: 60px;
   width: 220px;
 }
 
 .sidebar-button p {
   margin: 0;
+  font-size: 1.2rem!important;
 }
 
 .sidebar-button.active {
-  background-color: #a6bdff;
+  background-color: #3e86ff;
+  color: white;
+}
+
+.light body {
+  transition: 0.5s;
+  background-color: whitesmoke;
+}
+
+.dark body {
+  transition: 0.5s;
+  background-color: rgb(17 24 39);
+}
+
+.background-primary {
+  transition: 0.5s;
+  background-color: rgb(17 24 39);
+  color: white;
+}
+
+.background-action {
+  background-color: #3e86ff;
+  color: white;
+}
+
+.light .background-primary {
+  transition: 0.5s;
+  background-color: whitesmoke;
+  color: black;
+}
+
+.background-secondary {
+  transition: 0.5s;
+  background-color: rgb(31 41 55);
+  color: white;
+}
+
+.light .background-secondary {
+  transition: 0.5s;
+  background-color: white;
+  color: black;
+}
+
+hr {
+  transition: 0.5s;
+  color: #e5e7eb!important;
+}
+
+.light hr {
+  transition: 0.5s;
+  color: gray!important;
 }
