@@ -6,7 +6,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(17 24 39);
-  height: 100vh;
 }
 
 #root {
@@ -71,6 +70,14 @@ button {
   width: 230px;
   display: flex;
   flex-direction: column;
+  height: 100vh;
+}
+
+.sticky {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  z-index: 1;
+  top: 0;
 }
 
 .site-name {

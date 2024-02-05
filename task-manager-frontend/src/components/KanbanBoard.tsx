@@ -25,6 +25,7 @@ export default function KanbanBoard() {
                         <KanbanTask />
                         <KanbanTask />
                         <KanbanTask />
+                        <KanbanTask />
                     </div>
                 </div>
             </div>

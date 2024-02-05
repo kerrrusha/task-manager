@@ -3,7 +3,7 @@ export default function KanbanTask() {
         <div>
             <div draggable="true"
                  className="background-secondary w-[280px] first:my-5 rounded-lg shadow-[#364e7e1a] pt-6 pb-2 px-3
-                 shadow-lg hover:text-[#635fc7] dark:text-white dark:hover:text-[#635fc7] cursor-pointer "
+                 shadow-lg hover:text-[#635fc7] cursor-pointer "
             >
                 <p className="font-bold tracking-wide ">
                     Finish frontend part of Kanban board

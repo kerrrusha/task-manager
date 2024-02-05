@@ -1,6 +1,6 @@
-import { Fragment } from 'react'
+import React, { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon } from '@heroicons/react/24/outline'
+import DarkModeSwitch from "./DarkModeSwitch";
 
 function classNames(...classes: string[]): string {
     return classes.filter(Boolean).join(' ');
@@ -23,9 +23,10 @@ export default function Header() {
                                     <h3 className="font-bold font-sans site-name">Task Manager</h3>
                                 </div>
                             </div>
-                            <div className="flex flex-1 absolute inset-y-0 right-0 justify-end pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                                {/* Profile dropdown */}
-                                <Menu as="div" className="relative ml-3">
+                            <div className="flex flex-1 absolute inset-y-0 right-0 justify-end items-center sm:static sm:inset-auto sm:ml-6">
+                                <DarkModeSwitch />
+
+                                <Menu as="div" className="relative ml-5 mr-2 ">
                                     <div>
                                         <Menu.Button className="pointer relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                             <span className="absolute -inset-1.5" />
