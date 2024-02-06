@@ -1,4 +1,17 @@
-export default function KanbanTask() {
+interface KanbanTaskData {
+    "id": string,
+    "title": string,
+    "description": string,
+    "assignedTo": string,
+    "priority": string,
+    "dueDate": string
+}
+
+interface KanbanTaskProps {
+    data: KanbanTaskData
+}
+
+export default function KanbanTask({data} : KanbanTaskProps) {
     return (
         <div>
             <div draggable="true"
@@ -6,20 +19,20 @@ export default function KanbanTask() {
                  shadow-lg hover:text-[#635fc7] cursor-pointer "
             >
                 <p className="font-bold tracking-wide ">
-                    Finish frontend part of Kanban board
+                    {data.title}
                 </p>
                 <p className="text-s tracking-tighter mt-2 text-gray-500">
-                    Complete board React component, sign-in, sign-out, user profile pages
+                    {data.description}
                 </p>
                 <div>
                     <p className="font-bold text-xs tracking-tighter mt-2 text-gray-500">
-                        Assigned to: <span>Kirill</span>
+                        Assigned to: <span>{data.assignedTo}</span>
                     </p>
                     <p className="font-bold text-xs tracking-tighter mt-2 text-gray-500">
-                        Priority: <span>High</span>
+                        Priority: <span>{data.priority}</span>
                     </p>
                     <p className="font-bold text-xs tracking-tighter mt-2 text-gray-500">
-                        Due date: <span>2024-02-06</span>
+                        Due date: <span>{data.dueDate}</span>
                     </p>
                 </div>
             </div>
