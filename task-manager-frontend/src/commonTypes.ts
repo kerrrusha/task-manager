@@ -23,12 +23,33 @@ export type Task = {
     dueDate: string,
 };
 
+export type AddNewTaskRequest = {
+    boardId: string,
+    columnId: string,
+    title: string,
+    description: string,
+    assignedTo: string,
+    priority: string,
+    dueDate: string,
+};
+
 export type Column = {
     id: string,
     title: string,
+    background: string,
     tasks: Array<Task>,
 };
 
 export type AddNewTaskModalProps = {
     columns: Array<Column>,
+};
+
+export type KanbanBoard = {
+    id: string,
+    name: string,
+    columns: Array<Column>,
+};
+
+export type KanbanState = {
+    boards: Array<KanbanBoard>,
 };

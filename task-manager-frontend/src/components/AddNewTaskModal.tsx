@@ -1,10 +1,10 @@
 import {FormEvent, useState} from "react";
-import {AddNewTaskModalProps, InputTarget, SelectTarget, TextAreaTarget} from "../commonTypes";
+import {AddNewTaskModalProps, AddNewTaskRequest, InputTarget, SelectTarget, TextAreaTarget} from "../commonTypes";
 
 export default function AddNewTaskModal({columns} : AddNewTaskModalProps) {
     const [showModal, setShowModal] = useState(false);
 
-    const[column, setColumn] = useState('');
+    const[columnId, setColumnId] = useState('');
     const[title, setTitle] = useState('');
     const[description, setDescription] = useState('');
     const[assignedTo, setAssignedTo] = useState('');
@@ -13,8 +13,10 @@ export default function AddNewTaskModal({columns} : AddNewTaskModalProps) {
 
     const handleAddNewTaskSubmit = (event : FormEvent) => {
         event.preventDefault();
-        const requestBody = {
-            column: column,
+
+        const requestBody : AddNewTaskRequest = {
+            boardId: boardId,
+            columnId: columnId,
             title: title,
             description: description,
             assignedTo: assignedTo,
@@ -23,6 +25,7 @@ export default function AddNewTaskModal({columns} : AddNewTaskModalProps) {
         }
         console.log("Saving new ticket:");
         console.log(requestBody);
+
         setShowModal(false);
     };
 
@@ -59,9 +62,9 @@ export default function AddNewTaskModal({columns} : AddNewTaskModalProps) {
                                         <label htmlFor="column"
                                                className="block mb-2 text-sm font-medium">Column</label>
                                         <select id="column"
-                                                value={column}
+                                                value={columnId}
                                                 required
-                                                onChange={({target} : SelectTarget) => setColumn(target.value)}
+                                                onChange={({target} : SelectTarget) => setColumnId(target.value)}
                                                 className="text-black border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                             <option value="">Choose column</option>
                                             {columns.map((col, index) => <option key={index} value={col.id}>{col.title}</option>)}
