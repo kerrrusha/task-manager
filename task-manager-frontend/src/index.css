@@ -121,30 +121,30 @@ button {
 .background-primary {
   transition: 0.5s;
   background-color: rgb(17 24 39);
-  color: white;
+  color: white!important;
 }
 
 .background-action {
   background-color: #3e86ff;
-  color: white;
+  color: white!important;
 }
 
 .light .background-primary {
   transition: 0.5s;
   background-color: whitesmoke;
-  color: black;
+  color: black!important;
 }
 
 .background-secondary {
   transition: 0.5s;
   background-color: rgb(31 41 55);
-  color: white;
+  color: white!important;
 }
 
 .light .background-secondary {
   transition: 0.5s;
   background-color: white;
-  color: black;
+  color: black!important;
 }
 
 hr {

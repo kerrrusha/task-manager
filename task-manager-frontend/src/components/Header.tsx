@@ -6,6 +6,12 @@ function classNames(...classes: string[]): string {
     return classes.filter(Boolean).join(' ');
 }
 
+const data = {
+    profileUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    firstName: "Tom",
+    lastName: "Cook",
+}
+
 export default function Header() {
     return (
         <Disclosure as="nav" className="background-secondary">
@@ -27,17 +33,20 @@ export default function Header() {
                                 <DarkModeSwitch />
 
                                 <Menu as="div" className="relative ml-5 mr-2 ">
-                                    <div>
-                                        <Menu.Button className="pointer relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                                            <span className="absolute -inset-1.5" />
-                                            <span className="sr-only">Open user menu</span>
-                                            <img
-                                                className="h-8 w-8 rounded-full"
-                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                alt=""
-                                            />
-                                        </Menu.Button>
-                                    </div>
+                                    <Menu.Button className="pointer relative flex flex-row items-center rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                        <span className="absolute -inset-1.5" />
+                                        <span className="sr-only">Open user menu</span>
+                                        <img
+                                            className="h-8 w-8 rounded-full"
+                                            src={data.profileUrl}
+                                            alt=""
+                                        />
+                                        <span className="ml-3 block text-sm font-medium leading-6">
+                                            <span>{data.firstName}</span>
+                                            <span> </span>
+                                            <span>{data.lastName}</span>
+                                        </span>
+                                    </Menu.Button>
                                     <Transition
                                         as={Fragment}
                                         enter="transition ease-out duration-100"
