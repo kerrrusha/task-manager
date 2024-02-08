@@ -29,15 +29,16 @@ export default function Profile() {
                                              alt=""
                                         />
                                         <button
+                                            disabled
                                             type="button"
                                             className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                                         >
                                             <label
                                                 htmlFor="file-upload"
-                                                className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                                                className="disabled relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                                             >
                                                 <span>Change</span>
-                                                <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                                                <input disabled id="file-upload" name="file-upload" type="file" className="sr-only" />
                                             </label>
                                         </button>
                                     </div>
@@ -81,6 +82,7 @@ export default function Profile() {
                                         </label>
                                         <div className="mt-2 flex flex-row items-center">
                                             <button
+                                                disabled
                                                 type="button"
                                                 className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                                             >

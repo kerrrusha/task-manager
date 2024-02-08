@@ -28,16 +28,16 @@ export default function Header() {
                 <>
                     <div className="mx-auto px-2 sm:px-6 lg:px-8">
                         <div className="relative flex h-16 items-center justify-between">
-                            <div className="flex justify-start">
+                            <a className="flex justify-start no-underline" href="/">
                                 <div className="flex items-center">
                                     <img
                                         className="h-8 w-auto"
                                         src="https://cdn-icons-png.flaticon.com/512/5065/5065589.png"
                                         alt="Task Manager"
                                     />
-                                    <h3 className="font-bold font-sans site-name">Task Manager</h3>
+                                    <h3 className="font-bold font-sans site-name mb-0">Task Manager</h3>
                                 </div>
-                            </div>
+                            </a>
                             <div className="flex flex-1 absolute inset-y-0 right-0 justify-end items-center sm:static sm:inset-auto sm:ml-6">
                                 <DarkModeSwitch />
 
@@ -78,12 +78,12 @@ export default function Header() {
                                             </Menu.Item>
                                             <Menu.Item>
                                                 {({ active }) => (
-                                                    <a
+                                                    <button
                                                         onClick={signOut}
-                                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 w-100 text-left')}
                                                     >
                                                         Sign out
-                                                    </a>
+                                                    </button>
                                                 )}
                                             </Menu.Item>
                                         </Menu.Items>

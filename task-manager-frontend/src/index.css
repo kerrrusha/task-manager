@@ -141,9 +141,17 @@ button {
   color: white!important;
 }
 
+.background-secondary a {
+  color: white!important;
+}
+
 .light .background-secondary {
   transition: 0.5s;
   background-color: white;
+  color: black!important;
+}
+
+.light .background-secondary a {
   color: black!important;
 }
 

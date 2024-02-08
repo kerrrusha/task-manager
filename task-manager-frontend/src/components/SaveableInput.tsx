@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {MIN_VALUE_LENGTH} from "../constants";
 
 type SaveableInputProp = {
     label: string;
@@ -8,8 +9,6 @@ type SaveableInputProp = {
 type Target = {
     target: HTMLInputElement;
 }
-
-const MIN_VALUE_LENGTH = 3;
 
 export default function SaveableInput({label, initialValue_} : SaveableInputProp) {
     const [initialValue, setInitialValue] = useState(initialValue_);
