@@ -8,7 +8,7 @@ interface KanbanTaskData {
 }
 
 interface KanbanTaskProps {
-    data: KanbanTaskData
+    data: KanbanTaskData,
 }
 
 export default function KanbanTask({data} : KanbanTaskProps) {

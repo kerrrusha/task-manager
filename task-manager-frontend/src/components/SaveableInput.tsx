@@ -9,10 +9,13 @@ type Target = {
     target: HTMLInputElement;
 }
 
+const MIN_VALUE_LENGTH = 3;
+
 export default function SaveableInput({label, initialValue_} : SaveableInputProp) {
     const [initialValue, setInitialValue] = useState(initialValue_);
     const [value, setValue] = useState(initialValue);
     const [buttonIsActive, setButtonIsActive] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleChange = ({target} : Target) => {
         setValue(target.value);
@@ -20,10 +23,23 @@ export default function SaveableInput({label, initialValue_} : SaveableInputProp
 
     const saveValue = (event : React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
+
+        const errorMessage = validateValue();
+        if (errorMessage) {
+            setErrorMessage(errorMessage);
+            return;
+        }
+
+        setErrorMessage('');
         console.log(`Saving value on the server: ${value}`);
         setInitialValue(value);
         setButtonIsActive(false);
     };
+
+    function validateValue() : string | null {
+        const valid = value !== undefined && value !== null && value.length >= MIN_VALUE_LENGTH;
+        return valid ? null : `Value must be at least ${MIN_VALUE_LENGTH} symbols length`;
+    }
 
     useEffect(() => {
         if (value === initialValue) {
@@ -46,7 +62,7 @@ export default function SaveableInput({label, initialValue_} : SaveableInputProp
                     type="text"
                     name={kebabCased}
                     id={kebabCased}
-                    className="block mr-2 w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="text-black block mr-2 w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
                 <button disabled={!buttonIsActive} onClick={saveValue}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -54,6 +70,9 @@ export default function SaveableInput({label, initialValue_} : SaveableInputProp
                     </svg>
                 </button>
             </div>
+            {errorMessage && <div className="p-1 text-sm text-red-800 rounded-lg" role="alert">
+                {errorMessage}
+            </div>}
         </>
     );
 }

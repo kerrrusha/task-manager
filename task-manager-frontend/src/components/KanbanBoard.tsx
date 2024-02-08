@@ -60,16 +60,16 @@ export default function KanbanBoard() {
                 </div>
                 <hr />
                 <div className="flex flex-row">
-                    {board.columns.map(col => {
+                    {board.columns.map((col, index) => {
                         return (
-                            <div className="scrollbar-hide mx-5 pt-[10px] min-w-[280px]">
-                                <p className=" font-semibold flex  items-center  gap-2 tracking-widest md:tracking-[.2em] text-[#828fa3]">
+                            <div key={index} className="scrollbar-hide mx-5 pt-[10px] min-w-[280px]">
+                                <div className=" font-semibold flex  items-center  gap-2 tracking-widest md:tracking-[.2em] text-[#828fa3]">
                                     <div className="rounded text-[white] px-2" style={{background: col.background}}>
                                         {col.title}
                                     </div>
                                     ({col.tasks.length})
-                                </p>
-                                {col.tasks.map(task => <KanbanTask data={task} />)}
+                                </div>
+                                {col.tasks.map((task, index) => <KanbanTask data={task} key={index} />)}
                             </div>
                     );
                     })}
