@@ -1,19 +1,14 @@
+import {MouseEventHandler} from "react";
+
 interface SidebarButtonProps {
     name: string;
-    url: string;
-    onClickCallback: Function;
+    onClickCallback: MouseEventHandler<HTMLButtonElement>;
     active?: boolean;
 }
 
-export default function SidebarButton({name, url, onClickCallback, active=false} : SidebarButtonProps) {
-    const handleClick = () => {
-        console.log(`Navigating to the ${url}`);
-
-        onClickCallback();
-    };
-
+export default function SidebarButton({name, onClickCallback, active=false} : SidebarButtonProps) {
     return (
-        <button className={`${active ? "active" : ""} sidebar-button`} onClick={handleClick}>
+        <button className={`${active ? "active" : ""} sidebar-button`} onClick={onClickCallback}>
             <div className="flex">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                      stroke="currentColor" className="w-6 h-6">
