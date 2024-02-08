@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {MIN_VALUE_LENGTH} from "../constants";
+import {InputTarget} from "../commonTypes";
 
 type SaveableInputProp = {
     label: string;
     initialValue_? : string;
-}
-
-type Target = {
-    target: HTMLInputElement;
 }
 
 export default function SaveableInput({label, initialValue_} : SaveableInputProp) {
@@ -16,7 +13,7 @@ export default function SaveableInput({label, initialValue_} : SaveableInputProp
     const [buttonIsActive, setButtonIsActive] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const handleChange = ({target} : Target) => {
+    const handleChange = ({target} : InputTarget) => {
         setValue(target.value);
     };
 

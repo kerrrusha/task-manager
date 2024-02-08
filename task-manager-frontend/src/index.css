@@ -164,3 +164,7 @@ hr {
   transition: 0.5s;
   color: gray!important;
 }
+
+*:focus {
+  outline: none;
+}

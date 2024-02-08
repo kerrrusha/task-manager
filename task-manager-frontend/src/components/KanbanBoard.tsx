@@ -82,7 +82,7 @@ export default function KanbanBoard() {
             <div className="w-100 p-3">
                 <div className="d-flex flex-row justify-between w-100">
                     <p className="background-primary font-bold fs-4 m-0">{activeBoard.name}</p>
-                    <AddNewTaskModal />
+                    <AddNewTaskModal columns={activeBoard.columns} />
                 </div>
                 <hr />
                 <div className="flex flex-row">
