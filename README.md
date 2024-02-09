@@ -12,9 +12,9 @@ https://task-manager-seven-sigma-46.vercel.app/
 - Create new tasks, set title, description, priority, assigned at and due date
 - Manage them via drag-n-drop
 
-### Used technologies
+## Used technologies
 
-## Frontend:
+### Frontend:
 - Typescript
 - React
 - Redux
@@ -22,7 +22,7 @@ https://task-manager-seven-sigma-46.vercel.app/
 - MaterialUI
 - Bootstrap
 
-## Backend (in development):
+### Backend (in development):
 - Java 21
 - Spring Boot 3.2.2
 - Spring Web (REST API)
