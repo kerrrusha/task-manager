@@ -1,6 +1,6 @@
 import React from 'react';
 import DarkModeSwitch from "../components/DarkModeSwitch";
-import {API_DOMAIN} from "../constants";
+import {API_DOMAIN} from "../common/constants";
 
 export default function SignUp() {
     return (

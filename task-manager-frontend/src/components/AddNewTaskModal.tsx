@@ -1,8 +1,18 @@
 import {FormEvent, useState} from "react";
-import {AddNewTaskModalProps, AddNewTaskRequest, InputTarget, SelectTarget, TextAreaTarget} from "../commonTypes";
+import {
+    AddNewTaskModalProps,
+    AddNewTaskRequest,
+    AddNewTaskResponse,
+    InputTarget,
+    SelectTarget,
+    TextAreaTarget
+} from "../common/commonTypes";
+import {useAppDispatch} from "../hooks/useAppDispatch";
+import {kanbanSlice} from "../redux/slices/kanbanSlice";
 
-export default function AddNewTaskModal({columns} : AddNewTaskModalProps) {
+export default function AddNewTaskModal({columns, boardId} : AddNewTaskModalProps) {
     const [showModal, setShowModal] = useState(false);
+    const dispatch = useAppDispatch();
 
     const[columnId, setColumnId] = useState('');
     const[title, setTitle] = useState('');
@@ -23,8 +33,15 @@ export default function AddNewTaskModal({columns} : AddNewTaskModalProps) {
             priority: priority,
             dueDate: dueDate,
         }
+
         console.log("Saving new ticket:");
         console.log(requestBody);
+        const savedTask: AddNewTaskResponse = {
+            id: "1231231231231",
+            ...requestBody
+        };
+
+        dispatch(kanbanSlice.actions.addNewTask(savedTask));
 
         setShowModal(false);
     };

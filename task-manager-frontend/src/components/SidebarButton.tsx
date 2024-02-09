@@ -1,14 +1,20 @@
-import {MouseEventHandler} from "react";
+import {Board} from "../common/commonTypes";
+import {useAppDispatch} from "../hooks/useAppDispatch";
+import {setActiveBoardId} from "../redux/slices/kanbanSlice";
+import {useAppSelector} from "../hooks/useAppSelector";
 
 interface SidebarButtonProps {
-    name: string;
-    onClickCallback: MouseEventHandler<HTMLButtonElement>;
-    active?: boolean;
+    board: Board;
 }
 
-export default function SidebarButton({name, onClickCallback, active=false} : SidebarButtonProps) {
+export default function SidebarButton({board} : SidebarButtonProps) {
+    const activeBoardId = useAppSelector((state) => state.kanban.activeBoardId);
+    const dispatch = useAppDispatch();
+
+    const isActive = board.id === activeBoardId;
+
     return (
-        <button className={`${active ? "active" : ""} sidebar-button`} onClick={onClickCallback}>
+        <button className={`${isActive ? "active" : ""} sidebar-button`} onClick={() => dispatch(setActiveBoardId(board.id))}>
             <div className="flex">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                      stroke="currentColor" className="w-6 h-6">
@@ -17,7 +23,7 @@ export default function SidebarButton({name, onClickCallback, active=false} : Si
                 </svg>
             </div>
             <div className="flex flex-1">
-                <p className="font-bold fs-5">{name}</p>
+                <p className="font-bold fs-5">{board.name}</p>
             </div>
         </button>
     );

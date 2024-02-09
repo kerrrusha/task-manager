@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {MIN_VALUE_LENGTH} from "../constants";
-import {InputTarget} from "../commonTypes";
+import {MIN_VALUE_LENGTH} from "../common/constants";
+import {InputTarget} from "../common/commonTypes";
 
 type SaveableInputProp = {
     label: string;

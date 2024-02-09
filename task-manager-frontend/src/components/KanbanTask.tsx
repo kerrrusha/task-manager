@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 interface KanbanTaskData {
     "id": string,
     "title": string,
@@ -11,7 +13,7 @@ interface KanbanTaskProps {
     data: KanbanTaskData,
 }
 
-export default function KanbanTask({data} : KanbanTaskProps) {
+function KanbanTask({data} : KanbanTaskProps) {
     return (
         <div>
             <div draggable="true"
@@ -39,3 +41,16 @@ export default function KanbanTask({data} : KanbanTaskProps) {
         </div>
     );
 }
+
+KanbanTask.propTypes = {
+    data: PropTypes.shape({
+        "id": PropTypes.string.isRequired,
+        "title": PropTypes.string.isRequired,
+        "description": PropTypes.string.isRequired,
+        "assignedTo": PropTypes.string.isRequired,
+        "priority": PropTypes.string.isRequired,
+        "dueDate": PropTypes.string.isRequired,
+    })
+};
+
+export default KanbanTask;

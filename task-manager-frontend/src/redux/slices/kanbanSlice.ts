@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { RootState } from '../store';
-import {AddNewTaskRequest, KanbanState} from "../../commonTypes";
+import {AddNewTaskResponse, KanbanState, Task} from "../../common/commonTypes";
+import mapAddNewTaskResponseToTask from "../../common/commonUtils";
 
-// Define the initial state using that type
 const initialState: KanbanState = {
+    activeBoardId: "61f7b91253a1a028d956e85d",
     boards: [
         {
             id: "61f7b91253a1a028d956e85d",
@@ -71,29 +71,30 @@ const initialState: KanbanState = {
             ]
         }
     ]
-}
+};
 
-export const counterSlice = createSlice({
+export const kanbanSlice = createSlice({
     name: 'kanban',
-    // `createSlice` will infer the state type from the `initialState` argument
     initialState,
     reducers: {
-        increment: (state) => {
-            state.value += 1
+        addNewTask: (state, action: PayloadAction<AddNewTaskResponse>) => {
+            const dto: AddNewTaskResponse = action.payload;
+            const task: Task = mapAddNewTaskResponseToTask(dto);
+
+            const boardIndex = state.boards.findIndex(board => board.id === dto.boardId);
+            const columnIndex = state.boards[boardIndex].columns.findIndex(column => column.id === dto.columnId);
+
+            state.boards[boardIndex].columns[columnIndex].tasks.push(task);
         },
-        decrement: (state) => {
-            state.value -= 1
-        },
-        // Use the PayloadAction type to declare the contents of `action.payload`
-        incrementByAmount: (state, action: PayloadAction<AddNewTaskRequest>) => {
-            state.value += action.payload
+        setActiveBoardId: (state, action: PayloadAction<string>) => {
+            state.activeBoardId = action.payload;
         },
     },
-})
+});
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions
+export const { addNewTask, setActiveBoardId } = kanbanSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectCount = (state: RootState) => state.counter.value
+// export const selectCount = (state: RootState) => state.counter.value;
 
-export default counterSlice.reducer
+export default kanbanSlice.reducer;
