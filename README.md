@@ -14,7 +14,7 @@ https://task-manager-seven-sigma-46.vercel.app/
 
 ## Used technologies
 
-### Frontend:
+### Frontend (in progress):
 - Typescript
 - React
 - Redux
@@ -22,7 +22,7 @@ https://task-manager-seven-sigma-46.vercel.app/
 - MaterialUI
 - Bootstrap
 
-### Backend (in development):
+### Backend (backlog):
 - Java 21
 - Spring Boot 3.2.2
 - Spring Web (REST API)
