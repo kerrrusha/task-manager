@@ -3,7 +3,7 @@ Kanban Task Manager Application is a web-based tool that allows users to operate
 The application consists from two parts - frontend and backend. Frontend uses React as framework and Redux as state management tool, backend using the Spring framework with a MongoDB database
 with Spring framework in order to provide secure registration and authorization. 
 
-At the state of 02.09.2024, frontend part of Task Manager application is being hosted at:  
+At the state of 09.02.2024, frontend part of Task Manager application is being hosted at:  
 https://task-manager-seven-sigma-46.vercel.app/
 
 ### Features
