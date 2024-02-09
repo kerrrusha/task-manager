@@ -3,12 +3,10 @@ import KanbanTask from "./KanbanTask";
 import AddNewTaskModal from "./AddNewTaskModal";
 import {useAppSelector} from "../hooks/useAppSelector";
 import {Board} from "../common/commonTypes";
+import {selectActiveBoard} from "../redux/slices/kanbanSlice";
 
 export default function KanbanBoard() {
-    const activeBoardId = useAppSelector((state) => state.kanban.activeBoardId);
-    const activeBoard: Board = useAppSelector((state) =>
-        state.kanban.boards.filter(board => board.id === activeBoardId)[0]
-    );
+    const activeBoard: Board = useAppSelector(selectActiveBoard);
 
     return (
         <div className="main-board">

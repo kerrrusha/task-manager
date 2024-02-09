@@ -8,7 +8,7 @@ import {
     TextAreaTarget
 } from "../common/commonTypes";
 import {useAppDispatch} from "../hooks/useAppDispatch";
-import {kanbanSlice} from "../redux/slices/kanbanSlice";
+import {addNewTask} from "../redux/slices/kanbanSlice";
 
 export default function AddNewTaskModal({columns, boardId} : AddNewTaskModalProps) {
     const [showModal, setShowModal] = useState(false);
@@ -41,7 +41,7 @@ export default function AddNewTaskModal({columns, boardId} : AddNewTaskModalProp
             ...requestBody
         };
 
-        dispatch(kanbanSlice.actions.addNewTask(savedTask));
+        dispatch(addNewTask(savedTask));
 
         setShowModal(false);
     };

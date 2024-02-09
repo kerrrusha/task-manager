@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {AddNewTaskResponse, KanbanState, Task} from "../../common/commonTypes";
 import mapAddNewTaskResponseToTask from "../../common/commonUtils";
+import {RootState} from "../store";
 
 const initialState: KanbanState = {
     activeBoardId: "61f7b91253a1a028d956e85d",
@@ -94,7 +95,4 @@ export const kanbanSlice = createSlice({
 
 export const { addNewTask, setActiveBoardId } = kanbanSlice.actions;
 
-// Other code such as selectors can use the imported `RootState` type
-// export const selectCount = (state: RootState) => state.counter.value;
-
-export default kanbanSlice.reducer;
+export const selectActiveBoard = (state: RootState) => state.kanban.boards.filter(board => board.id === state.kanban.activeBoardId)[0];
