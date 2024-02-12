@@ -11,7 +11,6 @@ import {
 import {mapAddNewTaskResponseToTask} from "../../common/commonUtils";
 import {RootState} from "../store";
 import assert from "assert";
-import {daysInYear} from "date-fns/constants";
 
 const initialState: KanbanState = {
     activeBoardId: "61f7b91253a1a028d956e85d",
