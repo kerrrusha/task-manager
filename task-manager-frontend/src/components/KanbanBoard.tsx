@@ -1,13 +1,15 @@
 import Sidebar from "./Sidebar";
-import KanbanTask from "./KanbanTask";
 import AddNewTaskModal from "./AddNewTaskModal";
 import {useAppSelector} from "../hooks/useAppSelector";
 import {Board} from "../common/commonTypes";
 import {selectActiveBoard} from "../redux/slices/kanbanSlice";
 import AddNewColumnModal from "./AddNewColumnModal";
+import KanbanColumn from "./KanbanColumn";
+import React from "react";
 
 export default function KanbanBoard() {
     const activeBoard: Board = useAppSelector(selectActiveBoard);
+
     return (
         <div className="flex flex-row overflow-x-scroll overflow-y-scroll scrollbar-hide height-not-header">
             <Sidebar />
@@ -20,19 +22,7 @@ export default function KanbanBoard() {
                     <hr className="w-100 mb-0" />
                 </div>
                 <div className="flex flex-1 flex-row px-3 w-100 my-3">
-                    {activeBoard.columns.map((col, index) => {
-                        return (
-                            <div key={index} className="mx-5 py-[10px] min-w-[280px]">
-                                <div className="font-semibold flex items-center gap-2 tracking-widest md:tracking-[.2em] text-[#828fa3]">
-                                    <div className="rounded text-[white] px-2" style={{background: col.background}}>
-                                        {col.title}
-                                    </div>
-                                    ({col.tasks.length})
-                                </div>
-                                {col.tasks.map((task, index) => <KanbanTask data={task} key={index} />)}
-                            </div>
-                        );
-                    })}
+                    {activeBoard.columns.map((col, index) => <KanbanColumn column={col} boardId={activeBoard.id} key={index} />)}
                     <div className="mx-5 py-[10px] min-w-[280px]">
                         <AddNewColumnModal boardId={activeBoard.id} />
                     </div>

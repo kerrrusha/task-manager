@@ -4,12 +4,14 @@ import {
     AddNewColumnResponse,
     AddNewTaskResponse,
     Board,
-    Column,
+    Column, DragTaskDto,
     KanbanState,
     Task
 } from "../../common/commonTypes";
 import {mapAddNewTaskResponseToTask} from "../../common/commonUtils";
 import {RootState} from "../store";
+import assert from "assert";
+import {daysInYear} from "date-fns/constants";
 
 const initialState: KanbanState = {
     activeBoardId: "61f7b91253a1a028d956e85d",
@@ -112,9 +114,27 @@ export const kanbanSlice = createSlice({
         setActiveBoardId: (state, action: PayloadAction<string>) => {
             state.activeBoardId = action.payload;
         },
+        dragTask: (state, action: PayloadAction<DragTaskDto>) => {
+            const dto: DragTaskDto = action.payload;
+
+            const board = state.boards.find((board) => board.id === dto.boardId);
+            assert(board !== undefined, `Can't find such board with id=${dto.boardId}`);
+
+            const prevCol = board.columns.find(col => col.id === dto.prevColId);
+            assert(prevCol !== undefined, `Can't find such previous column with id=${dto.prevColId}`);
+
+            const taskIndex = prevCol.tasks.findIndex(task => task.id === dto.taskId);
+            const task = prevCol.tasks[taskIndex];
+            prevCol.tasks.splice(taskIndex, 1);
+
+            const targetCol = board.columns.find(col => col.id === dto.targetColId);
+            assert(targetCol !== undefined, `Can't find such target column with id=${dto.targetColId}`);
+
+            targetCol.tasks.push(task);
+        },
     },
 });
 
-export const { addNewTask, addNewColumn, setActiveBoardId, addNewBoard } = kanbanSlice.actions;
+export const { addNewTask, addNewColumn, setActiveBoardId, addNewBoard, dragTask } = kanbanSlice.actions;
 
 export const selectActiveBoard = (state: RootState) => state.kanban.boards.filter(board => board.id === state.kanban.activeBoardId)[0];

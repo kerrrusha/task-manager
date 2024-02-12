@@ -85,3 +85,10 @@ export type Task = {
     priority: string,
     dueDate: string,
 };
+
+export type DragTaskDto = {
+    boardId: string,
+    targetColId: string,
+    prevColId: string,
+    taskId: string,
+};

@@ -10,7 +10,7 @@ export default function Sidebar() {
     return (
         <div className="w-[230px] flex flex-column background-secondary sticky">
             <p className="fs-5 font-bold mb-4 mx-3 mt-3">ALL BOARDS (<span id="boards-count">{boards.length}</span>)</p>
-            {boards.map((board) => <SidebarButton board={board} />)}
+            {boards.map((board, index) => <SidebarButton board={board} key={index} />)}
             <AddNewBoardModal />
         </div>
     );
