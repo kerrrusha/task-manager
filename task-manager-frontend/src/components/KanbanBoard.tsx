@@ -17,9 +17,9 @@ export default function KanbanBoard() {
                         <AddNewTaskModal columns={activeBoard.columns} boardId={activeBoard.id} />
                         <p className="background-primary font-bold fs-4 mb-0 ml-8">{activeBoard.title}</p>
                     </div>
-                    <hr className="w-100" />
+                    <hr className="w-100 mb-0" />
                 </div>
-                <div className="flex flex-1 flex-row px-3 w-100">
+                <div className="flex flex-1 flex-row px-3 w-100 my-3">
                     {activeBoard.columns.map((col, index) => {
                         return (
                             <div key={index} className="mx-5 py-[10px] min-w-[280px]">

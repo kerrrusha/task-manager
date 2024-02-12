@@ -19,7 +19,7 @@ export default function SidebarButton({board} : SidebarButtonProps) {
                 <img src="https://kanban-task-management-react-tailwind.vercel.app/static/media/icon-board.29b48f5174742b4dd3a04f52d710293c.svg"
                      alt=""/>
             </div>
-            <div className="flex flex-1">
+            <div className="flex flex-1 justify-center">
                 <p className="font-bold fs-5">{board.title}</p>
             </div>
         </button>
