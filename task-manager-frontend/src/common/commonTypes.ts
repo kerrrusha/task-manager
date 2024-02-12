@@ -49,6 +49,16 @@ export type AddNewColumnResponse = {
     tasks: Array<Task>,
 };
 
+export type AddNewBoardRequest = {
+    title: string,
+}
+
+export type AddNewBoardResponse = {
+    id: string,
+    title: string,
+    columns: Array<Column>,
+}
+
 export type KanbanState = {
     activeBoardId: string,
     boards: Array<Board>,
@@ -56,7 +66,7 @@ export type KanbanState = {
 
 export type Board = {
     id: string,
-    name: string,
+    title: string,
     columns: Array<Column>,
 };
 

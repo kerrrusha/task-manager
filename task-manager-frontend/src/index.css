@@ -60,18 +60,7 @@ button {
 .home {
   display: flex;
   flex-direction: column;
-  height: 100%;
-}
-
-.main-board {
-  display: flex;
-  flex-direction: row;
-}
-
-.sidebar {
-  width: 230px;
-  display: flex;
-  flex-direction: column;
+  min-height: 100vh;
 }
 
 .width-not-sidebar {
@@ -81,7 +70,6 @@ button {
 .sticky {
   position: -webkit-sticky; /* For Safari */
   position: sticky;
-  z-index: 1;
   top: 0;
   left: 0;
 }
@@ -153,7 +141,7 @@ button {
 }
 
 .background-secondary a {
-  color: white!important;
+  color: white;
 }
 
 .light .background-secondary {

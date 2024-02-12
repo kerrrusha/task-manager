@@ -1,43 +1,35 @@
 import {FormEvent, useState} from "react";
 import {
-    AddNewColumnRequest,
-    AddNewColumnResponse,
+    AddNewBoardRequest,
+    AddNewBoardResponse,
     InputTarget,
 } from "../common/commonTypes";
-import {generateRandomMongoId, rgbToString} from "../common/commonUtils";
+import {generateRandomMongoId} from "../common/commonUtils";
 import {useAppDispatch} from "../hooks/useAppDispatch";
-import {addNewColumn} from "../redux/slices/kanbanSlice";
-import { RgbColorPicker } from "react-colorful";
+import {addNewBoard} from "../redux/slices/kanbanSlice";
 
-type AddNewColumnModalProps = {
-    boardId: string,
-};
-
-export default function AddNewColumnModal({boardId} : AddNewColumnModalProps) {
+export default function AddNewBoardModal() {
     const [showModal, setShowModal] = useState(false);
     const dispatch = useAppDispatch();
 
     const[title, setTitle] = useState('');
-    const[background, setBackground] = useState({ r: 200, g: 150, b: 35 });
 
-    const handleAddNewColumnSubmit = (event : FormEvent) => {
+    const handleAddNewBoardSubmit = (event : FormEvent) => {
         event.preventDefault();
 
-        const requestBody : AddNewColumnRequest = {
-            boardId: boardId,
+        const requestBody : AddNewBoardRequest = {
             title: title,
-            background: rgbToString(background),
         }
 
-        console.log("Saving new column:");
+        console.log("Saving new board:");
         console.log(requestBody);
-        const savedColumn: AddNewColumnResponse = {
+        const savedBoard: AddNewBoardResponse = {
             id: generateRandomMongoId(),
             ...requestBody,
-            tasks: [],
+            columns: [],
         };
 
-        dispatch(addNewColumn(savedColumn));
+        dispatch(addNewBoard(savedBoard));
 
         setShowModal(false);
     };
@@ -45,23 +37,23 @@ export default function AddNewColumnModal({boardId} : AddNewColumnModalProps) {
     return (
         <>
             <button
-                className="border-dashed border-2 border-gray-600 button w-100 h-100 background-secondary text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                className="mt-3 px-0 mx-0 border-dashed border-2 border-gray-600 button background-secondary text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
                 onClick={() => setShowModal(true)}
             >
-                + Add new column
+                + Add new board
             </button>
             {showModal && (
                 <>
                     <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none w-100">
                         <div className="relative my-6 mx-auto w-50">
                             {/*content*/}
-                            <form method="POST" onSubmit={handleAddNewColumnSubmit}
-                                  className="border-0 rounded-lg shadow-lg relative flex flex-col bg-white outline-none focus:outline-none">
+                            <form method="POST" onSubmit={handleAddNewBoardSubmit}
+                                  className="border-0 rounded-lg shadow-lg relative flex flex-col bg-white text-black outline-none focus:outline-none">
                                 {/*header*/}
                                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                                     <h3 className="text-3xl font-semibold">
-                                        Add new column
+                                        Add new board
                                     </h3>
                                     <button
                                         className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -79,11 +71,6 @@ export default function AddNewColumnModal({boardId} : AddNewColumnModalProps) {
                                                dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                onChange={({target} : InputTarget) => setTitle(target.value)}
                                                required />
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <p className="block mb-2 text-sm font-medium">Background</p>
-                                        <RgbColorPicker color={background} onChange={setBackground} />
                                     </div>
                                 </div>
                                 {/*footer*/}

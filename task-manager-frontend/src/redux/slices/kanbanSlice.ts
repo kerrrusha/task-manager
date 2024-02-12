@@ -1,5 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {AddNewColumnResponse, AddNewTaskResponse, Column, KanbanState, Task} from "../../common/commonTypes";
+import {
+    AddNewBoardResponse,
+    AddNewColumnResponse,
+    AddNewTaskResponse,
+    Board,
+    Column,
+    KanbanState,
+    Task
+} from "../../common/commonTypes";
 import {mapAddNewTaskResponseToTask} from "../../common/commonUtils";
 import {RootState} from "../store";
 
@@ -8,7 +16,7 @@ const initialState: KanbanState = {
     boards: [
         {
             id: "61f7b91253a1a028d956e85d",
-            name: "Fullstack Project Launch",
+            title: "Fullstack Project Launch",
             columns: [
                 {
                     id: "61f7b91253a1a028d956e85d",
@@ -52,7 +60,7 @@ const initialState: KanbanState = {
         },
         {
             id: "1237b91253a1a028d956e123",
-            name: "Fullstack Project Launch II",
+            title: "Fullstack Project Launch II",
             columns: [
                 {
                     id: "61f7b91253a1a028d956e85d",
@@ -95,12 +103,18 @@ export const kanbanSlice = createSlice({
 
             state.boards[boardIndex].columns.push(column);
         },
+        addNewBoard: (state, action: PayloadAction<AddNewBoardResponse>) => {
+            const dto: AddNewBoardResponse = action.payload;
+            const board: Board = dto;
+
+            state.boards.push(board);
+        },
         setActiveBoardId: (state, action: PayloadAction<string>) => {
             state.activeBoardId = action.payload;
         },
     },
 });
 
-export const { addNewTask, addNewColumn, setActiveBoardId } = kanbanSlice.actions;
+export const { addNewTask, addNewColumn, setActiveBoardId, addNewBoard } = kanbanSlice.actions;
 
 export const selectActiveBoard = (state: RootState) => state.kanban.boards.filter(board => board.id === state.kanban.activeBoardId)[0];

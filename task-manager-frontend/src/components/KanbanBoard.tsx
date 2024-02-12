@@ -9,18 +9,20 @@ import AddNewColumnModal from "./AddNewColumnModal";
 export default function KanbanBoard() {
     const activeBoard: Board = useAppSelector(selectActiveBoard);
     return (
-        <div className="main-board scrollbar-hide overflow-x-scroll height-not-header">
+        <div className="flex flex-row overflow-x-scroll overflow-y-scroll scrollbar-hide height-not-header">
             <Sidebar />
-            <div>
-                <div className="px-5 mt-3 d-flex flex-row items-center width-not-sidebar" style={{zIndex: -1}}>
-                    <p className="background-primary font-bold fs-4 mb-0 mr-8">{activeBoard.name}</p>
-                    <AddNewTaskModal columns={activeBoard.columns} boardId={activeBoard.id} />
+            <div className="flex flex-col">
+                <div>
+                    <div className="px-5 pt-3 flex flex-row items-center width-not-sidebar">
+                        <AddNewTaskModal columns={activeBoard.columns} boardId={activeBoard.id} />
+                        <p className="background-primary font-bold fs-4 mb-0 ml-8">{activeBoard.title}</p>
+                    </div>
+                    <hr className="w-100" />
                 </div>
-                <hr className="my-3 w-100" />
-                <div className="px-3 flex flex-row w-100 h-100">
+                <div className="flex flex-1 flex-row px-3 w-100">
                     {activeBoard.columns.map((col, index) => {
                         return (
-                            <div key={index} className="mx-5 pt-[10px] min-w-[280px]">
+                            <div key={index} className="mx-5 py-[10px] min-w-[280px]">
                                 <div className="font-semibold flex items-center gap-2 tracking-widest md:tracking-[.2em] text-[#828fa3]">
                                     <div className="rounded text-[white] px-2" style={{background: col.background}}>
                                         {col.title}
@@ -31,7 +33,7 @@ export default function KanbanBoard() {
                             </div>
                         );
                     })}
-                    <div className="mx-5 pt-[10px] min-w-[280px]">
+                    <div className="mx-5 py-[10px] min-w-[280px]">
                         <AddNewColumnModal boardId={activeBoard.id} />
                     </div>
                 </div>
