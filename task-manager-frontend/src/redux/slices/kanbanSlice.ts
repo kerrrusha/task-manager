@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {AddNewTaskResponse, KanbanState, Task} from "../../common/commonTypes";
-import mapAddNewTaskResponseToTask from "../../common/commonUtils";
+import {AddNewColumnResponse, AddNewTaskResponse, Column, KanbanState, Task} from "../../common/commonTypes";
+import {mapAddNewTaskResponseToTask} from "../../common/commonUtils";
 import {RootState} from "../store";
 
 const initialState: KanbanState = {
@@ -87,12 +87,20 @@ export const kanbanSlice = createSlice({
 
             state.boards[boardIndex].columns[columnIndex].tasks.push(task);
         },
+        addNewColumn: (state, action: PayloadAction<AddNewColumnResponse>) => {
+            const dto: AddNewColumnResponse = action.payload;
+            const column: Column = dto;
+
+            const boardIndex = state.boards.findIndex(board => board.id === dto.boardId);
+
+            state.boards[boardIndex].columns.push(column);
+        },
         setActiveBoardId: (state, action: PayloadAction<string>) => {
             state.activeBoardId = action.payload;
         },
     },
 });
 
-export const { addNewTask, setActiveBoardId } = kanbanSlice.actions;
+export const { addNewTask, addNewColumn, setActiveBoardId } = kanbanSlice.actions;
 
 export const selectActiveBoard = (state: RootState) => state.kanban.boards.filter(board => board.id === state.kanban.activeBoardId)[0];

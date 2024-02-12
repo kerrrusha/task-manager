@@ -1,14 +1,19 @@
 import {FormEvent, useState} from "react";
 import {
-    AddNewTaskModalProps,
     AddNewTaskRequest,
-    AddNewTaskResponse,
+    AddNewTaskResponse, Column,
     InputTarget,
     SelectTarget,
     TextAreaTarget
 } from "../common/commonTypes";
 import {useAppDispatch} from "../hooks/useAppDispatch";
 import {addNewTask} from "../redux/slices/kanbanSlice";
+import {generateRandomMongoId} from "../common/commonUtils";
+
+type AddNewTaskModalProps = {
+    columns: Array<Column>,
+    boardId: string,
+};
 
 export default function AddNewTaskModal({columns, boardId} : AddNewTaskModalProps) {
     const [showModal, setShowModal] = useState(false);
@@ -37,7 +42,7 @@ export default function AddNewTaskModal({columns, boardId} : AddNewTaskModalProp
         console.log("Saving new ticket:");
         console.log(requestBody);
         const savedTask: AddNewTaskResponse = {
-            id: "1231231231231",
+            id: generateRandomMongoId(),
             ...requestBody
         };
 
@@ -49,7 +54,7 @@ export default function AddNewTaskModal({columns, boardId} : AddNewTaskModalProp
     return (
         <>
             <button
-                className="button background-action text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                className="button background-action text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                 type="button"
                 onClick={() => setShowModal(true)}
             >

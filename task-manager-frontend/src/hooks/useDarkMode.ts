@@ -15,7 +15,7 @@ export default function useDarkMode() : [string, Function] {
         root.classList.add(targetTheme);
 
         localStorage.setItem(THEME, targetTheme);
-    }, [targetTheme, setTargetTheme])
+    }, [targetTheme, setTargetTheme, currentTheme])
 
     return [currentTheme, setTargetTheme];
 }
