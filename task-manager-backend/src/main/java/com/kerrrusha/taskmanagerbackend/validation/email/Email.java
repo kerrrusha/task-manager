@@ -1,4 +1,4 @@
-package com.kerrrusha.taskmanagerbackend.validation;
+package com.kerrrusha.taskmanagerbackend.validation.email;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
