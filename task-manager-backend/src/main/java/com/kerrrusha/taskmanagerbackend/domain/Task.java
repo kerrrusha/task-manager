@@ -28,8 +28,15 @@ public class Task {
     private String assignedTo;
 
     @NotBlank
-    private String priority;
+    private Priority priority;
 
     @NotNull
     private LocalDate dueDate;
+
+    public enum Priority {
+        LOW,
+        NORMAL,
+        HIGH,
+        URGENT
+    }
 }
