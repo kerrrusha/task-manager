@@ -1,6 +1,7 @@
 package com.kerrrusha.taskmanagerbackend.config;
 
-import com.kerrrusha.taskmanagerbackend.security.CustomUserDetailsService;
+import com.kerrrusha.taskmanagerbackend.handler.FilterChainExceptionHandler;
+import com.kerrrusha.taskmanagerbackend.security.ReadyUserDetailsService;
 import com.kerrrusha.taskmanagerbackend.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -23,17 +25,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final FilterChainExceptionHandler filterChainExceptionHandler;
     private final JwtAuthenticationFilter jwtAuthFilter;
-    private final CustomUserDetailsService userDetailsService;
+    private final ReadyUserDetailsService userDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                .addFilterBefore(filterChainExceptionHandler, LogoutFilter.class)
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**")
+                                .requestMatchers("/auth/**", "/swagger-ui/**")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()

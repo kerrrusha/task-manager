@@ -13,11 +13,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
+//todo remove
 public class UserController {
 
     private final UserRepository userRepository;
 
-    //todo remove
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
     public List<User> findAll() {
