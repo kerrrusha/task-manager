@@ -18,7 +18,7 @@ export default function SignIn() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" action={`${API_DOMAIN}/api/signin`} method="POST">
+                    <form className="space-y-6" action={`${API_DOMAIN}/auth/login`} method="POST">
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6">
                                 Email address

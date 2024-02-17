@@ -18,7 +18,7 @@ export default function SignUp() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" action={`${API_DOMAIN}/api/signup`} method="POST">
+                    <form className="space-y-6" action={`${API_DOMAIN}/auth/register`} method="POST">
                         <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-3">
                                 <label htmlFor="first-name" className="block text-sm font-medium leading-6">
