@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
 @RequiredArgsConstructor
-//todo remove
+@RequestMapping("/users")
 public class UserController {
 
     private final UserRepository userRepository;
