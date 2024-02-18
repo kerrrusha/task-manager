@@ -1,8 +1,10 @@
 package com.kerrrusha.taskmanagerbackend.controller;
 
-import com.kerrrusha.taskmanagerbackend.domain.Board;
 import com.kerrrusha.taskmanagerbackend.domain.User;
 import com.kerrrusha.taskmanagerbackend.dto.board.request.CreateBoardRequestDto;
+import com.kerrrusha.taskmanagerbackend.dto.board.response.BoardResponseDto;
+import com.kerrrusha.taskmanagerbackend.dto.column.request.CreateColumnRequestDto;
+import com.kerrrusha.taskmanagerbackend.dto.task.request.CreateTaskRequestDto;
 import com.kerrrusha.taskmanagerbackend.service.KanbanService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,14 +25,25 @@ public class KanbanController {
     private final KanbanService kanbanService;
 
     @GetMapping("/boards")
-    public List<Board> findAll(Authentication authentication) {
+    public List<BoardResponseDto> findAllBoards(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return kanbanService.findAllBoards(user.getId());
     }
 
     @PostMapping("/boards/new")
-    public Board createBoard(@Valid @RequestBody CreateBoardRequestDto boardRequestDto, Authentication authentication) {
+    public BoardResponseDto createBoard(@Valid @RequestBody CreateBoardRequestDto boardRequestDto) {
+        return kanbanService.saveBoard(boardRequestDto);
+    }
+
+    @PostMapping("/columns/new")
+    public BoardResponseDto createColumn(@Valid @RequestBody CreateColumnRequestDto columnRequestDto, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        return kanbanService.saveBoard(boardRequestDto, user.getId());
+        return kanbanService.addColumn(columnRequestDto, user.getId());
+    }
+
+    @PostMapping("/tasks/new")
+    public BoardResponseDto createColumn(@Valid @RequestBody CreateTaskRequestDto taskRequestDto, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        return kanbanService.addTask(taskRequestDto, user.getId());
     }
 }

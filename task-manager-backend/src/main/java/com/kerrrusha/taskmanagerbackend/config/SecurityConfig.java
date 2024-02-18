@@ -1,6 +1,6 @@
 package com.kerrrusha.taskmanagerbackend.config;
 
-import com.kerrrusha.taskmanagerbackend.handler.FilterChainExceptionHandler;
+import com.kerrrusha.taskmanagerbackend.config.handler.FilterChainExceptionHandler;
 import com.kerrrusha.taskmanagerbackend.security.ReadyUserDetailsService;
 import com.kerrrusha.taskmanagerbackend.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;

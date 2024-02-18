@@ -1,4 +1,4 @@
-package com.kerrrusha.taskmanagerbackend.handler;
+package com.kerrrusha.taskmanagerbackend.config.handler;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
