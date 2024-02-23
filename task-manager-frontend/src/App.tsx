@@ -5,6 +5,7 @@ import SignUp from './pages/SignUp';
 import NoPage from './pages/NoPage';
 import Profile from "./pages/Profile";
 import {useEffect, useState} from "react";
+import {GoogleOAuthProvider} from "@react-oauth/google";
 
 const data = {
   userId: "asd",
@@ -20,15 +21,17 @@ export default function App() {
   }, [userId]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="*" element={<NoPage />} />
-      </Routes>
-    </BrowserRouter>
+      <GoogleOAuthProvider clientId={"857347797520-ca56rug79hdelb4ar8pdqmjtoc6v07jb.apps.googleusercontent.com"}>
+        <BrowserRouter>
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/login" element={<SignIn />} />
+            <Route path="/register" element={<SignUp />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="*" element={<NoPage />} />
+          </Routes>
+        </BrowserRouter>
+      </GoogleOAuthProvider>
   );
 }

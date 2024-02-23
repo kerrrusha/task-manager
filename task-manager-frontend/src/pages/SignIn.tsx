@@ -1,6 +1,7 @@
 import React from 'react';
 import DarkModeSwitch from "../components/DarkModeSwitch";
-import {API_DOMAIN} from "../common/constants";
+import { API_DOMAIN } from "../common/constants";
+import { GoogleLogin } from '@react-oauth/google';
 
 export default function SignIn() {
     return (
@@ -57,6 +58,13 @@ export default function SignIn() {
                                     className="text-black block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
+                        </div>
+
+                        <div className="flex justify-center">
+                            <GoogleLogin
+                                onSuccess={response => console.log(response)}
+                                onError={() => console.log("error happened...")}
+                            />
                         </div>
 
                         <div>
