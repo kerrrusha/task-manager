@@ -1,8 +1,9 @@
 import React from 'react';
 import DarkModeSwitch from "../components/DarkModeSwitch";
-import {API_DOMAIN} from "../common/constants";
+import {LoginProps} from "./Login";
 
-export default function SignUp() {
+// TODO implement oauth register
+export default function Register({ isLogin, setIsLogin } : LoginProps) {
     return (
         <div className="background-primary">
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -18,7 +19,7 @@ export default function SignUp() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" action={`${API_DOMAIN}/auth/register`} method="POST">
+                    <form className="space-y-6" action={`${process.env.REACT_APP_BACKEND_ORIGIN}/auth/register`} method="POST">
                         <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-3">
                                 <label htmlFor="first-name" className="block text-sm font-medium leading-6">
@@ -108,7 +109,7 @@ export default function SignUp() {
 
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Not registered yet?{' '}
-                        <a href="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                        <a href="/Register.tsx" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                             Sign Up
                         </a>
                     </p>
