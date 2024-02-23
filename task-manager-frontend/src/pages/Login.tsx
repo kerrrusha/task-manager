@@ -1,9 +1,33 @@
-import React from 'react';
 import DarkModeSwitch from "../components/DarkModeSwitch";
-import { API_DOMAIN } from "../common/constants";
-import { GoogleLogin } from '@react-oauth/google';
+import {useNavigate} from "react-router-dom";
+import {Dispatch, SetStateAction, useEffect} from "react";
+import {CredentialResponse} from "@react-oauth/google";
+import GoogleLogin from "../components/GoogleLogin";
+import {PAGES} from "../common/constants";
+import {postLoginToken} from "../api/postLoginToken";
 
-export default function SignIn() {
+export interface LoginProps {
+    isLogin: boolean;
+    setIsLogin: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function Login({ isLogin, setIsLogin } : LoginProps) {
+    const navigate = useNavigate();
+
+    // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
+    const onGoogleSignIn = async (res : CredentialResponse) => {
+        const { credential } = res;
+        const result = await postLoginToken(credential!);   //non-null assertion
+        setIsLogin(result);
+    };
+
+    useEffect(() => {
+        if (!isLogin) {
+            return;
+        }
+        navigate(PAGES.home);
+    }, [isLogin, navigate]);
+
     return (
         <div className="background-primary">
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -19,7 +43,7 @@ export default function SignIn() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" action={`${API_DOMAIN}/auth/login`} method="POST">
+                    <form className="space-y-6" action={`${process.env.REACT_APP_BACKEND_ORIGIN}/auth/login`} method="POST">
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6">
                                 Email address
@@ -61,10 +85,7 @@ export default function SignIn() {
                         </div>
 
                         <div className="flex justify-center">
-                            <GoogleLogin
-                                onSuccess={response => console.log(response)}
-                                onError={() => console.log("error happened...")}
-                            />
+                            <GoogleLogin onGoogleSignIn={onGoogleSignIn} text="Sign in with Google" />
                         </div>
 
                         <div>
@@ -79,7 +100,7 @@ export default function SignIn() {
 
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Not registered yet?{' '}
-                        <a href="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                        <a href="/Register.tsx" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                             Sign Up
                         </a>
                     </p>
