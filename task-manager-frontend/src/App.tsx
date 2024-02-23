@@ -1,37 +1,39 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Home from './pages/Home';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import NoPage from './pages/NoPage';
 import Profile from "./pages/Profile";
 import {useEffect, useState} from "react";
-import {GoogleOAuthProvider} from "@react-oauth/google";
-
-const data = {
-  userId: "asd",
-}
+import {PAGES} from "./common/constants";
+import {getUserInfo} from "./api/getUserInfo";
 
 export default function App() {
-  const [userId] = useState<string | undefined>(data.userId);
+  const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
-    if (userId === undefined && !['/signin', '/signup'].includes(window.location.pathname)) {
-      window.location.href = '/signin';
-    }
-  }, [userId]);
+    const initLogin = async () => {
+      try {
+        const name = await getUserInfo();
+        setIsLogin(!!name); //convert to boolean
+      } catch (e : any) {
+        console.error(e);
+      }
+    };
+    initLogin().then(r => console.log(r));
+  }, []);
 
   return (
-      <GoogleOAuthProvider clientId={"857347797520-ca56rug79hdelb4ar8pdqmjtoc6v07jb.apps.googleusercontent.com"}>
-        <BrowserRouter>
-          <Routes>
-            <Route index element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/login" element={<SignIn />} />
-            <Route path="/register" element={<SignUp />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="*" element={<NoPage />} />
-          </Routes>
-        </BrowserRouter>
-      </GoogleOAuthProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path={PAGES.home} element={<Home />} />
+        <Route path={PAGES.login} element={<Login isLogin={isLogin} setIsLogin={setIsLogin} />} />
+        <Route path={PAGES.register} element={<Register isLogin={isLogin} setIsLogin={setIsLogin} />} />
+        <Route path={PAGES.profile}
+               element={isLogin ? <Profile isLogin={isLogin} /> : <Navigate to={PAGES.login} />} />
+        <Route path="*" element={<NoPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

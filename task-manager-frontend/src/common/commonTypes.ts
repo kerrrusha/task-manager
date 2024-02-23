@@ -14,6 +14,10 @@ export type TextAreaTarget = {
     target: HTMLTextAreaElement;
 }
 
+export type IsLoginProps = {
+    isLogin: boolean;
+}
+
 export type AddNewTaskRequest = {
     boardId: string,
     columnId: string,
@@ -91,4 +95,12 @@ export type DragTaskDto = {
     targetColId: string,
     prevColId: string,
     taskId: string,
+};
+
+export type User = {
+    id: string,
+    email: string,
+    firstName: string,
+    lastName: string,
+    profilePhotoUrl: string,
 };
