@@ -3,7 +3,7 @@ server:
     contextpath: /api
 
 jwt:
-  secret: fjshbfJKHFDSJKhfos8fp3fofSDFsf32455vdcfghdfgv34234ggdgjghjdf5345DSFSDFsfrg43
+  secret: fjshbfJKHFDSJKhfos8fp3fofSDFsf32455vdcfghdfgv34234ggdgjghjdf5345DSFSDFsfrg43vdjhfbjdhb487v498bv0230vn0485vb
   expiration:
     ms: 86400000
     remember-me:
