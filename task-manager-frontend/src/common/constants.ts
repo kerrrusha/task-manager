@@ -8,6 +8,6 @@ export const PAGES = {
 }
 
 export const API_ENDPOINTS = {
-    getOauthUser: '/oauth/user/info',
-    oauthLogin: 'oauth/login',
+    getOAuthUser: '/oauth/user/info',
+    googleOAuthLogin: '/oauth/google/login',
 }

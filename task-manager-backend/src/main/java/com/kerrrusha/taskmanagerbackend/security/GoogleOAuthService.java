@@ -72,12 +72,13 @@ public class GoogleOAuthService {
         String firstName = (String) payload.get("given_name");
         String lastName = (String) payload.get("family_name");
         String email = payload.getEmail();
-        String pictureUrl = (String) payload.get("picture");
+        String profilePhotoUrl = (String) payload.get("picture");
         String tempPassword = randomPasswordGenerator.generatePassword(PASSWORD_LENGTH);
 
         User user = new User();
         user.setFirstName(firstName);
         user.setLastName(lastName);
+        user.setProfilePhotoUrl(profilePhotoUrl);
         user.setEmail(email);
         user.setPassword(tempPassword);
 

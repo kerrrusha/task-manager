@@ -17,9 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import static org.springframework.security.config.Customizer.withDefaults;
+import static org.springframework.security.web.csrf.CookieCsrfTokenRepository.withHttpOnlyFalse;
 
 @Configuration
 @EnableWebSecurity
@@ -35,12 +35,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .cors(withDefaults())
-                .csrf(configurer -> configurer
-                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        .ignoringRequestMatchers("/oauth/login"))
+                .csrf(csrf -> csrf
+                        .csrfTokenRepository(withHttpOnlyFalse())
+                        .ignoringRequestMatchers("/oauth/google/login"))
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/auth/**", "/swagger-ui/**")
+                                .requestMatchers("/oauth/**", "/auth/**", "/swagger-ui/**")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())
