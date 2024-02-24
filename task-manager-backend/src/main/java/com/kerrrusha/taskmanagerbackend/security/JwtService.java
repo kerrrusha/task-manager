@@ -14,7 +14,6 @@ import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,6 +24,8 @@ import javax.crypto.SecretKey;
 @Slf4j
 @Service
 public class JwtService {
+
+    private static final String ROLES_KEY = "roles";
 
     @Value("${jwt.secret}")
     private String jwtSecret;
@@ -47,7 +48,7 @@ public class JwtService {
         if (userDetails instanceof User customUserDetails) {
             extraClaims.put("id", customUserDetails.getId());
             extraClaims.put("email", customUserDetails.getEmail());
-            extraClaims.put("roles", customUserDetails.getRoles());
+            extraClaims.put(ROLES_KEY, customUserDetails.getRoles());
         }
         return Jwts.builder()
                 .claims(extraClaims)
@@ -58,23 +59,23 @@ public class JwtService {
                 .compact();
     }
 
-    private SecretKey getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
-        return Keys.hmacShaKeyFor(keyBytes);
-    }
-
     public UsernamePasswordAuthenticationToken verifyAndGetAuthentication(String token) {
         try {
-            Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(key)
+            Claims claims = Jwts.parser()
+                    .verifyWith(getSigningKey())
                     .build()
-                    .parseClaimsJws(token)
-                    .getBody();
-            List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(claims.get("role", String.class));
+                    .parseSignedClaims(token)
+                    .getPayload();
+            List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(claims.get(ROLES_KEY, String.class));
             return new UsernamePasswordAuthenticationToken(claims.getSubject(), token, authorities);
         } catch (JwtException | IllegalArgumentException e) {
             log.warn("#verifyAndGetAuthentication - ", e);
             return null;
         }
+    }
+
+    private SecretKey getSigningKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 }

@@ -12,8 +12,11 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import static com.kerrrusha.taskmanagerbackend.controller.OAuthController.AUTH_TOKEN;
 
 @Component
 @RequiredArgsConstructor
@@ -31,7 +34,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         Cookie authCookie = cookies == null
                 ? null
                 : Arrays.stream(cookies)
-                    .filter(cookie -> cookie.getName().equals("AUTH-TOKEN"))
+                    .filter(cookie -> cookie.getName().equals(AUTH_TOKEN))
                     .findAny().orElse(null);
 
         if (authCookie == null) {
@@ -41,6 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         UsernamePasswordAuthenticationToken authentication = jwtService.verifyAndGetAuthentication(authCookie.getValue());
         if (authentication != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);

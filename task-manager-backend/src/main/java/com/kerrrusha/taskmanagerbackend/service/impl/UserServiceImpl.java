@@ -7,7 +7,6 @@ import com.kerrrusha.taskmanagerbackend.mapper.UserMapper;
 import com.kerrrusha.taskmanagerbackend.repository.UserRepository;
 import com.kerrrusha.taskmanagerbackend.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,13 +32,13 @@ public class UserServiceImpl implements UserService {
         user.setProfilePhotoUrl(request.getProfilePhotoUrl());
         User savedUser = userRepository.save(user);
 
-        return userMapper.toUserResponse(savedUser);
+        return userMapper.toDto(savedUser);
     }
 
     @Override
-    public UserResponseDto findByEmail(String email) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found by email: " + email));
-        return userMapper.toUserResponse(user);
+    public UserResponseDto findById(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found by id: " + userId));
+        return userMapper.toDto(user);
     }
 }

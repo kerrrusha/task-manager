@@ -7,5 +7,5 @@ public interface UserService {
 
     UserResponseDto register(UserRegistrationRequestDto request);
 
-    UserResponseDto findByEmail(String email);
+    UserResponseDto findById(String userId);
 }
