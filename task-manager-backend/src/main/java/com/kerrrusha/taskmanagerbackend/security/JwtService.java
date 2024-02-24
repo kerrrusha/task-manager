@@ -63,7 +63,7 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public Authentication verifyAndGetAuthentication(String token) {
+    public UsernamePasswordAuthenticationToken verifyAndGetAuthentication(String token) {
         try {
             Claims claims = Jwts.parserBuilder()
                     .setSigningKey(key)
