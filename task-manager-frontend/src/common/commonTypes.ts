@@ -14,8 +14,8 @@ export type TextAreaTarget = {
     target: HTMLTextAreaElement;
 }
 
-export type IsLoginProps = {
-    isLogin: boolean;
+export type IsLoggedInProps = {
+    isLoggedIn: boolean;
 }
 
 export type AddNewTaskRequest = {
@@ -104,3 +104,7 @@ export type User = {
     lastName: string,
     profilePhotoUrl: string,
 };
+
+export type AuthState = {
+    user: User | null,
+}

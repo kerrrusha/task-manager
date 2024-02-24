@@ -7,31 +7,33 @@ import Profile from "./pages/Profile";
 import {useEffect, useState} from "react";
 import {PAGES} from "./common/constants";
 import {getUserInfo} from "./api/getUserInfo";
+import {useAppDispatch} from "./hooks/useAppDispatch";
+import {useAppSelector} from "./hooks/useAppSelector";
+import {fetchUser, selectUser} from "./redux/slices/authSlice";
 
 export default function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  console.log("App.tsx called");
+
+  const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const initLogin = async () => {
-      try {
-        const name = await getUserInfo();
-        setIsLogin(!!name); //convert to boolean
-      } catch (e : any) {
-        console.error(e);
-      }
-    };
-    initLogin().then(r => console.log(r));
-  }, []);
+    dispatch(fetchUser());
+  }, [dispatch]);
 
+  const isLoggedIn = !!user;
+
+  console.log(`App.tsx: user - ${user}`);
+  
   return (
     <BrowserRouter>
       <Routes>
         <Route index element={<Home />} />
         <Route path={PAGES.home} element={<Home />} />
-        <Route path={PAGES.login} element={<Login isLogin={isLogin} setIsLogin={setIsLogin} />} />
-        <Route path={PAGES.register} element={<Register isLogin={isLogin} setIsLogin={setIsLogin} />} />
+        <Route path={PAGES.login} element={<Login isLoggedIn={isLoggedIn} />} />
+        <Route path={PAGES.register} element={<Register isLoggedIn={isLoggedIn} />} />
         <Route path={PAGES.profile}
-               element={isLogin ? <Profile isLogin={isLogin} /> : <Navigate to={PAGES.login} />} />
+               element={isLoggedIn ? <Profile isLoggedIn={isLoggedIn} /> : <Navigate to={PAGES.login} />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>

@@ -1,11 +1,11 @@
 import Header from '../components/Header';
 import SaveableInput from "../components/SaveableInput";
-import {IsLoginProps} from "../common/commonTypes";
+import {IsLoggedInProps} from "../common/commonTypes";
 import useUserInfo from "../hooks/useUserInfo";
 
-export default function Profile({isLogin} : IsLoginProps) {
+export default function Profile({isLoggedIn} : IsLoggedInProps) {
     //todo store in redis
-    const [user, setUser] = useUserInfo(isLogin);
+    const [user, setUser] = useUserInfo(isLoggedIn);
     
     return (
         <>

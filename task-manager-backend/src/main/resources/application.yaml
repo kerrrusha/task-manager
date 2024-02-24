@@ -3,10 +3,15 @@ server:
     contextpath: /api
 
 jwt:
-  signing:
-    key: fjshbfJKHFDSJKhfos8fp3fofSDFsf32455vdcfghdfgv34234ggdgjghjdf5345DSFSDFsfrg43
+  secret: fjshbfJKHFDSJKhfos8fp3fofSDFsf32455vdcfghdfgv34234ggdgjghjdf5345DSFSDFsfrg43
   expiration:
     ms: 86400000
+    remember-me:
+      ms: 2592000000
+
+google:
+  oauth:
+    client-id: 857347797520-ca56rug79hdelb4ar8pdqmjtoc6v07jb.apps.googleusercontent.com
 
 spring:
   data:

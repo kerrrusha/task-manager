@@ -1,32 +1,30 @@
 import DarkModeSwitch from "../components/DarkModeSwitch";
 import {useNavigate} from "react-router-dom";
-import {Dispatch, SetStateAction, useEffect} from "react";
+import {useEffect} from "react";
 import {CredentialResponse} from "@react-oauth/google";
 import GoogleLogin from "../components/GoogleLogin";
 import {PAGES} from "../common/constants";
 import {postLoginToken} from "../api/postLoginToken";
 
 export interface LoginProps {
-    isLogin: boolean;
-    setIsLogin: Dispatch<SetStateAction<boolean>>;
+    isLoggedIn: boolean;
 }
 
-export default function Login({ isLogin, setIsLogin } : LoginProps) {
+export default function Login({ isLoggedIn } : LoginProps) {
     const navigate = useNavigate();
 
     // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
     const onGoogleSignIn = async (res : CredentialResponse) => {
         const { credential } = res;
-        const result = await postLoginToken(credential!);   //non-null assertion
-        setIsLogin(result);
+        await postLoginToken(credential!);   //non-null assertion
     };
 
     useEffect(() => {
-        if (!isLogin) {
+        if (!isLoggedIn) {
             return;
         }
         navigate(PAGES.home);
-    }, [isLogin, navigate]);
+    }, [isLoggedIn, navigate]);
 
     return (
         <div className="background-primary">
