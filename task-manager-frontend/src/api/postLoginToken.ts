@@ -1,7 +1,7 @@
 import {API_ENDPOINTS} from "../common/constants";
 
 export const postLoginToken = async (idToken : string) => {
-    const API_URL = process.env.REACT_APP_API_URL;
+    const API_URL = process.env.REACT_APP_BACKEND_ORIGIN;
     const path = API_ENDPOINTS.oauthLogin;
 
     await fetch(`${API_URL}${path}`, {

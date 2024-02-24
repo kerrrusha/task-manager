@@ -12,18 +12,20 @@ import {useAppSelector} from "./hooks/useAppSelector";
 import {fetchUser, selectUser} from "./redux/slices/authSlice";
 
 export default function App() {
-  console.log("App.tsx called");
+  // console.log("App.tsx called");
+  //
+  // const user = useAppSelector(selectUser);
+  // const dispatch = useAppDispatch();
+  //
+  // useEffect(() => {
+  //   dispatch(fetchUser());
+  // }, [dispatch]);
+  //
+  // const isLoggedIn = !!user;
+  //
+  // console.log(`App.tsx: user - ${user}`);
 
-  const user = useAppSelector(selectUser);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchUser());
-  }, [dispatch]);
-
-  const isLoggedIn = !!user;
-
-  console.log(`App.tsx: user - ${user}`);
+  const isLoggedIn = false;
   
   return (
     <BrowserRouter>

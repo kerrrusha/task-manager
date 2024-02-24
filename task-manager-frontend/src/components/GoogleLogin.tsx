@@ -19,14 +19,14 @@ export default function GoogleLogin({
         // https://developers.google.com/identity/gsi/web/reference/js-reference#google.accounts.id.initialize
         // @ts-ignore
         window.google.accounts.id.initialize({
-            client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+            client_id: process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID,
             callback: onGoogleSignIn,
         });
         // https://developers.google.com/identity/gsi/web/reference/js-reference#google.accounts.id.renderButton
         // @ts-ignore
         window.google.accounts.id.renderButton(
             googleSignInButton.current,
-            { theme: 'filled_blue', size: 'large', text, width: '250' }, // customization attributes
+            { theme: 'outline', size: 'medium', text, width: '250' }, // customization attributes
         );
     });
 
