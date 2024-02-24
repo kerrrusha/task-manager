@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import DarkModeSwitch from "./DarkModeSwitch";
 import {useNavigate} from "react-router-dom";
+import {logout} from "../api/logout";
 
 function classNames(...classes: string[]): string {
     return classes.filter(Boolean).join(' ');
@@ -19,7 +20,10 @@ export default function Header() {
 
     function signOut() {
         console.log(`Signing out userId=${data.userId}`);
-        navigate("/");
+        logout().then(r => {
+            console.log(`logged out: ${r}`)
+            navigate("/")
+        });
     }
 
     return (
