@@ -8,7 +8,7 @@ export const postLoginToken = async (idToken : string) => {
         method: 'POST',
         credentials: 'include', // include, *same-origin, omit
         headers: {
-            Accept: 'application/json',
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(idToken),
