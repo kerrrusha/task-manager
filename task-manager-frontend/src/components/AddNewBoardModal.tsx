@@ -6,7 +6,8 @@ import {
 } from "../common/commonTypes";
 import {generateRandomMongoId} from "../common/commonUtils";
 import {useAppDispatch} from "../hooks/useAppDispatch";
-import {addNewBoard} from "../redux/slices/kanbanSlice";
+import {saveNewBoard} from "../redux/slices/kanbanSlice";
+import {postNewBoard} from "../services/postNewBoard";
 
 export default function AddNewBoardModal() {
     const [showModal, setShowModal] = useState(false);
@@ -21,15 +22,12 @@ export default function AddNewBoardModal() {
             title: title,
         }
 
-        console.log("Saving new board:");
-        console.log(requestBody);
-        const savedBoard: AddNewBoardResponse = {
-            id: generateRandomMongoId(),
-            ...requestBody,
-            columns: [],
-        };
+        postNewBoard(requestBody).then(savedBoard => {
+            console.log("Saved board:");
+            console.log(savedBoard);
 
-        dispatch(addNewBoard(savedBoard));
+            dispatch(saveNewBoard(savedBoard));
+        });
 
         setShowModal(false);
     };

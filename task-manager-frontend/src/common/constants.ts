@@ -1,5 +1,4 @@
 export const MIN_VALUE_LENGTH = 3;
-export const AUTH_TOKEN = "AUTH_TOKEN";
 
 export const PAGES = {
 	home: '/home',
@@ -14,4 +13,5 @@ export const API_ENDPOINTS = {
     logout: '/auth/logout',
     isAuthorized: '/user/authorized',
     fetchKanban: '/kanban/boards',
+    postNewBoard: '/kanban/boards/new',
 }

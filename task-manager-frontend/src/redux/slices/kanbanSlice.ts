@@ -3,7 +3,6 @@ import {
     AddNewBoardResponse,
     AddNewColumnResponse,
     AddNewTaskResponse,
-    Board,
     Column, DragTaskDto, KanbanBoardsResponse,
     KanbanState,
     Task
@@ -109,11 +108,9 @@ export const kanbanSlice = createSlice({
 
             state.boards[boardIndex].columns.push(column);
         },
-        addNewBoard: (state, action: PayloadAction<AddNewBoardResponse>) => {
-            const dto: AddNewBoardResponse = action.payload;
-            const board: Board = dto;
-
-            state.boards.push(board);
+        saveNewBoard: (state, action: PayloadAction<AddNewBoardResponse>) => {
+            const savedBoard: AddNewBoardResponse = action.payload;
+            state.boards.push(savedBoard);
         },
         setActiveBoardId: (state, action: PayloadAction<string>) => {
             state.activeBoardId = action.payload;
@@ -139,6 +136,6 @@ export const kanbanSlice = createSlice({
     },
 });
 
-export const { addNewTask, addNewColumn, setActiveBoardId, addNewBoard, dragTask, setKanban } = kanbanSlice.actions;
+export const { addNewTask, addNewColumn, setActiveBoardId, saveNewBoard, dragTask, setKanban } = kanbanSlice.actions;
 
 export const selectActiveBoard = (state: RootState) => state.kanban.boards.filter(board => board.id === state.kanban.activeBoardId)[0];
