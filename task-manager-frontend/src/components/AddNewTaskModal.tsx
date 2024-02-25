@@ -18,6 +18,7 @@ type AddNewTaskModalProps = {
 export default function AddNewTaskModal({columns, boardId} : AddNewTaskModalProps) {
     const [showModal, setShowModal] = useState(false);
     const dispatch = useAppDispatch();
+    const active = columns && columns.length > 0;
 
     const[columnId, setColumnId] = useState('');
     const[title, setTitle] = useState('');
@@ -54,9 +55,11 @@ export default function AddNewTaskModal({columns, boardId} : AddNewTaskModalProp
     return (
         <>
             <button
-                className="button background-action text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                className="button background-action disabled:bg-gray-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                 type="button"
                 onClick={() => setShowModal(true)}
+                disabled={!active}
+                title={active ? "" : "Board should have at least 1 column to create new task"}
             >
                 + Add new task
             </button>
