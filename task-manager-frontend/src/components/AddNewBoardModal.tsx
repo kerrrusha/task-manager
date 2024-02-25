@@ -1,10 +1,8 @@
 import {FormEvent, useState} from "react";
 import {
     AddNewBoardRequest,
-    AddNewBoardResponse,
     InputTarget,
 } from "../common/commonTypes";
-import {generateRandomMongoId} from "../common/commonUtils";
 import {useAppDispatch} from "../hooks/useAppDispatch";
 import {saveNewBoard} from "../redux/slices/kanbanSlice";
 import {postNewBoard} from "../services/postNewBoard";
