@@ -12,6 +12,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @Mapper(config = MapperConfig.class)
 public abstract class BoardMapper {
 
@@ -28,10 +30,10 @@ public abstract class BoardMapper {
 
     @AfterMapping
     protected void setColumns(@MappingTarget BoardResponseDto boardResponseDto, Board board) {
-        ColumnResponseDto[] columns = columnRepository.findAllByBoardId(board.getId())
+        List<ColumnResponseDto> columns = columnRepository.findAllByBoardId(board.getId())
                 .stream()
                 .map(columnMapper::toDto)
-                .toArray(ColumnResponseDto[]::new);
+                .toList();
         boardResponseDto.setColumns(columns);
     }
 }

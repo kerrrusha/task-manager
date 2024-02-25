@@ -1,21 +1,21 @@
 import Header from '../components/Header';
 import SaveableInput from "../components/SaveableInput";
+import {LoggedInProps} from "../common/commonTypes";
+import useFetchUser from "../hooks/useFetchUser";
+import {useAppSelector} from "../hooks/useAppSelector";
+import {selectUser} from "../redux/slices/authSlice";
+import LoadingGif from "../components/LoadingGif";
 
-const data = {
-    id: "asdagtj3iu4534asd33245g",
-    email: "cock@gmail.com",
-    firstName: "Tom",
-    lastName: "Cock",
-    profilePhotoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-}
-
-export default function Profile() {
+export default function Profile({loggedIn, setLoggedIn} : LoggedInProps) {
+    const [userFetched] = useFetchUser();
+    const user = useAppSelector(selectUser)!;
+    
     return (
         <>
-            <Header />
+            <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
             <div className="background-primary mx-auto max-w-7xl px-4 py-5 sm:px-6 sm:py-32 lg:px-8">
                 <div className="mx-auto max-w-2xl">
-                    <form>
+                    {!userFetched ? <LoadingGif /> : <form>
                         <div className="space-y-12">
                             <h4 className="text-header font-semibold leading-7 border-b p-2">Profile</h4>
                             <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -26,7 +26,7 @@ export default function Profile() {
                                     <div className="mt-2 flex items-center gap-x-3">
                                         <img className="rounded-full"
                                              width={128}
-                                             src={data.profilePhotoUrl}
+                                             src={user.profilePhotoUrl}
                                              alt=""
                                         />
                                         <button
@@ -49,11 +49,11 @@ export default function Profile() {
                             <div className="pb-12 mt-0">
                                 <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                     <div className="sm:col-span-3">
-                                        <SaveableInput label="First name" initialValue_={data.firstName} />
+                                        <SaveableInput label="First name" initialValue_={user.firstName} />
                                     </div>
 
                                     <div className="sm:col-span-3">
-                                        <SaveableInput label="Last name" initialValue_={data.lastName} />
+                                        <SaveableInput label="Last name" initialValue_={user.lastName} />
                                     </div>
 
                                     <div className="sm:col-span-4">
@@ -64,7 +64,7 @@ export default function Profile() {
                                             <input
                                                 disabled
                                                 readOnly
-                                                value={data.email}
+                                                value={user.email}
                                                 id="email"
                                                 name="email"
                                                 type="email"
@@ -94,7 +94,7 @@ export default function Profile() {
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </form>}
                 </div>
             </div>
         </>

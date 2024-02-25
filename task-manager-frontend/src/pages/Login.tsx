@@ -1,8 +1,20 @@
-import React from 'react';
 import DarkModeSwitch from "../components/DarkModeSwitch";
-import {API_DOMAIN} from "../common/constants";
+import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
+import GoogleLogin from "../components/GoogleLogin";
+import {PAGES} from "../common/constants";
+import {LoggedInProps} from "../common/commonTypes";
+import {onGoogleSignIn} from "../services/onGoogleSignIn";
 
-export default function SignIn() {
+export default function Login({loggedIn, setLoggedIn} : LoggedInProps) {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (loggedIn) {
+            navigate(PAGES.home);
+        }
+    }, [loggedIn]);
+
     return (
         <div className="background-primary">
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -18,7 +30,7 @@ export default function SignIn() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" action={`${API_DOMAIN}/auth/login`} method="POST">
+                    <form className="space-y-6" action={`${process.env.REACT_APP_BACKEND_ORIGIN}/auth/login`} method="POST">
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6">
                                 Email address
@@ -67,11 +79,15 @@ export default function SignIn() {
                                 Sign in
                             </button>
                         </div>
+
+                        <div className="flex justify-center">
+                            <GoogleLogin onGoogleSignIn={(cred) => onGoogleSignIn(cred, setLoggedIn)} text="Sign in with Google" />
+                        </div>
                     </form>
 
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Not registered yet?{' '}
-                        <a href="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                        <a href="/register" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                             Sign Up
                         </a>
                     </p>

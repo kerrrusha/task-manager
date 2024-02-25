@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-const DARK : string = 'dark';
+export const DARK : string = 'dark';
 export const LIGHT : string = 'light';
 const THEME : string = 'theme';
 

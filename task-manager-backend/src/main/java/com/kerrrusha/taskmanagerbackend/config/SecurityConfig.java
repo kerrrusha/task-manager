@@ -19,11 +19,15 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
+    private static final String[] AUTH_WHITELIST = new String[] {"/oauth/**", "/auth/**", "/swagger-ui/**"};
 
     private final FilterChainExceptionHandler filterChainExceptionHandler;
     private final JwtAuthenticationFilter jwtAuthFilter;
@@ -32,18 +36,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .addFilterBefore(filterChainExceptionHandler, LogoutFilter.class)
-                .cors(AbstractHttpConfigurer::disable)
+                .cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/auth/**", "/swagger-ui/**")
+                                .requestMatchers(AUTH_WHITELIST)
                                 .permitAll()
                                 .anyRequest()
-                                .authenticated()
-                )
+                                .authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(filterChainExceptionHandler, LogoutFilter.class)
                 .userDetailsService(userDetailsService)
                 .build();
     }

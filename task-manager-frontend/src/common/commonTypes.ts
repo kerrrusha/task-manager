@@ -1,3 +1,5 @@
+import {Dispatch} from "react";
+
 export type InputTarget = {
     target: HTMLInputElement;
 }
@@ -12,6 +14,11 @@ export type SelectTarget = {
 
 export type TextAreaTarget = {
     target: HTMLTextAreaElement;
+}
+
+export type LoggedInProps = {
+    loggedIn: boolean;
+    setLoggedIn: Dispatch<any>;
 }
 
 export type AddNewTaskRequest = {
@@ -59,6 +66,10 @@ export type AddNewBoardResponse = {
     columns: Array<Column>,
 }
 
+export type DeleteBoardRequest = {
+    boardId: string;
+}
+
 export type KanbanState = {
     activeBoardId: string,
     boards: Array<Board>,
@@ -68,6 +79,10 @@ export type Board = {
     id: string,
     title: string,
     columns: Array<Column>,
+};
+
+export type KanbanBoardsResponse = {
+    boards: Array<Board>,
 };
 
 export type Column = {
@@ -92,3 +107,15 @@ export type DragTaskDto = {
     prevColId: string,
     taskId: string,
 };
+
+export type User = {
+    id: string,
+    email: string,
+    firstName: string,
+    lastName: string,
+    profilePhotoUrl: string,
+};
+
+export type AuthState = {
+    user: User | null,
+}

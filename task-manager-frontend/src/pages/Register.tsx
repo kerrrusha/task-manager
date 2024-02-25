@@ -1,8 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import DarkModeSwitch from "../components/DarkModeSwitch";
-import {API_DOMAIN} from "../common/constants";
+import {LoggedInProps} from "../common/commonTypes";
+import GoogleLogin from "../components/GoogleLogin";
+import {onGoogleSignIn} from "../services/onGoogleSignIn";
+import {useNavigate} from "react-router-dom";
+import {PAGES} from "../common/constants";
 
-export default function SignUp() {
+export default function Register({loggedIn, setLoggedIn} : LoggedInProps) {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (loggedIn) {
+            navigate(PAGES.home);
+        }
+    }, [loggedIn]);
+
     return (
         <div className="background-primary">
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -18,7 +30,7 @@ export default function SignUp() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" action={`${API_DOMAIN}/auth/register`} method="POST">
+                    <form className="space-y-6" action={`${process.env.REACT_APP_BACKEND_ORIGIN}/auth/register`} method="POST">
                         <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-3">
                                 <label htmlFor="first-name" className="block text-sm font-medium leading-6">
@@ -101,15 +113,19 @@ export default function SignUp() {
                                 type="submit"
                                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
-                                Sign in
+                                Sign up
                             </button>
+                        </div>
+
+                        <div className="flex justify-center">
+                            <GoogleLogin onGoogleSignIn={(cred) => onGoogleSignIn(cred, setLoggedIn)} text="Sign up with Google" />
                         </div>
                     </form>
 
                     <p className="mt-10 text-center text-sm text-gray-500">
-                        Not registered yet?{' '}
-                        <a href="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                            Sign Up
+                        Already registered?{' '}
+                        <a href="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                            Sign In
                         </a>
                     </p>
                 </div>

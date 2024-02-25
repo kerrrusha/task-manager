@@ -4,6 +4,7 @@ import com.kerrrusha.taskmanagerbackend.domain.Board;
 import com.kerrrusha.taskmanagerbackend.domain.Column;
 import com.kerrrusha.taskmanagerbackend.domain.Task;
 import com.kerrrusha.taskmanagerbackend.dto.board.request.CreateBoardRequestDto;
+import com.kerrrusha.taskmanagerbackend.dto.board.request.DeleteBoardRequestDto;
 import com.kerrrusha.taskmanagerbackend.dto.board.response.BoardResponseDto;
 import com.kerrrusha.taskmanagerbackend.dto.column.request.CreateColumnRequestDto;
 import com.kerrrusha.taskmanagerbackend.dto.task.request.CreateTaskRequestDto;
@@ -67,5 +68,19 @@ public class KanbanServiceImpl implements KanbanService {
 
         Board board = boardRepository.findById(column.getBoardId()).orElseThrow();
         return boardMapper.toDto(board);
+    }
+
+    @Override
+    public void deleteBoard(DeleteBoardRequestDto boardRequestDto, String userId) {
+        Board boardToDelete = boardRepository.findByIdAndCreatedByUserId(boardRequestDto.boardId(), userId).orElseThrow();
+        List<Column> columnsToDelete = columnRepository.findAllByBoardId(boardToDelete.getId());
+        List<Task> tasksToDelete = columnsToDelete.stream()
+                        .map(col -> taskRepository.findAllByColumnId(col.getId()))
+                        .flatMap(List::stream)
+                        .toList();
+
+        taskRepository.deleteAll(tasksToDelete);
+        columnRepository.deleteAll(columnsToDelete);
+        boardRepository.deleteById(boardRequestDto.boardId());
     }
 }

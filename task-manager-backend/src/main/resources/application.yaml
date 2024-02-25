@@ -3,10 +3,15 @@ server:
     contextpath: /api
 
 jwt:
-  signing:
-    key: fjshbfJKHFDSJKhfos8fp3fofSDFsf32455vdcfghdfgv34234ggdgjghjdf5345DSFSDFsfrg43
+  secret: fjshbfJKHFDSJKhfos8fp3fofSDFsf32455vdcfghdfgv34234ggdgjghjdf5345DSFSDFsfrg43vdjhfbjdhb487v498bv0230vn0485vb
   expiration:
     ms: 86400000
+    remember-me:
+      ms: 2592000000
+
+google:
+  oauth:
+    client-id: 857347797520-ca56rug79hdelb4ar8pdqmjtoc6v07jb.apps.googleusercontent.com
 
 spring:
   data:
@@ -18,3 +23,17 @@ spring:
   output:
     ansi:
       enabled: always
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            clientId: 6987adaa7792481e88df
+            clientSecret: aa561776aa17b81916754503600240d72743a1ff
+            scope: email, public_profile
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
