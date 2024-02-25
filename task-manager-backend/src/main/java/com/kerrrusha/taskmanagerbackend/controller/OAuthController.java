@@ -24,13 +24,13 @@ public class OAuthController {
 
     public static final String AUTH_TOKEN = "AUTH-TOKEN";
 
-    private final UserService userService;
     private final GoogleOAuthService googleOAuthService;
+    private final UserService userService;
 
     @GetMapping("/user/info")
     public UserResponseDto getUserInfo(Principal principal) {
         String userId = principal.getName();
-        return userService.findById(userId);
+        return userService.findByEmail(userId);
     }
 
     @PostMapping("/google/login")
