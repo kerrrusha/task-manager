@@ -12,7 +12,6 @@ import com.kerrrusha.taskmanagerbackend.repository.UserRepository;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,18 +26,15 @@ public class GoogleOAuthService {
     private final JwtService jwtService;
     private final GoogleIdTokenVerifier verifier;
     private final RandomPasswordGenerator randomPasswordGenerator;
-    private final PasswordEncoder passwordEncoder;
 
     public GoogleOAuthService(
             @Value("${google.oauth.client-id}") String clientId,
             UserRepository userRepository,
             JwtService jwtService,
-            RandomPasswordGenerator randomPasswordGenerator,
-            PasswordEncoder passwordEncoder) {
+            RandomPasswordGenerator randomPasswordGenerator) {
         this.userRepository = userRepository;
         this.jwtService = jwtService;
         this.randomPasswordGenerator = randomPasswordGenerator;
-        this.passwordEncoder = passwordEncoder;
 
         NetHttpTransport transport = new NetHttpTransport();
         JsonFactory jsonFactory = new JacksonFactory();
@@ -84,7 +80,7 @@ public class GoogleOAuthService {
         user.setLastName(lastName);
         user.setProfilePhotoUrl(profilePhotoUrl);
         user.setEmail(email);
-        user.setPassword(passwordEncoder.encode(tempPassword));
+        user.setPassword(tempPassword);
 
         return user;
     }
