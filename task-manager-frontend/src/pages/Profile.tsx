@@ -1,7 +1,8 @@
 import Header from '../components/Header';
 import SaveableInput from "../components/SaveableInput";
+import {LoggedInProps} from "../common/commonTypes";
 
-export default function Profile() {
+export default function Profile({loggedIn, setLoggedIn} : LoggedInProps) {
     //todo store in redis
     // const [user, setUser] = useUserInfo();
 
@@ -14,7 +15,7 @@ export default function Profile() {
     
     return (
         <>
-            <Header />
+            <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
             <div className="background-primary mx-auto max-w-7xl px-4 py-5 sm:px-6 sm:py-32 lg:px-8">
                 <div className="mx-auto max-w-2xl">
                     <form>

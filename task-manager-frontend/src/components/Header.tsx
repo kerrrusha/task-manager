@@ -1,8 +1,10 @@
-import React, { Fragment } from 'react'
+import React, {Fragment, useEffect} from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import DarkModeSwitch from "./DarkModeSwitch";
 import {useNavigate} from "react-router-dom";
 import {logout} from "../services/logout";
+import {PAGES} from "../common/constants";
+import {LoggedInProps} from "../common/commonTypes";
 
 function classNames(...classes: string[]): string {
     return classes.filter(Boolean).join(' ');
@@ -15,16 +17,20 @@ const data = {
     lastName: "Cook",
 }
 
-export default function Header() {
+export default function Header({loggedIn, setLoggedIn} : LoggedInProps) {
     const navigate = useNavigate();
 
     function signOut() {
-        console.log(`Signing out`);
-        logout().then(r => {
-            console.log(`logged out: ${r}`)
-            navigate("/")
+        logout().then(() => {
+            setLoggedIn(false);
         });
     }
+
+    useEffect(() => {
+        if (!loggedIn) {
+            navigate(PAGES.login);
+        }
+    }, [loggedIn]);
 
     return (
         <Disclosure as="nav" className="background-secondary">
@@ -32,7 +38,7 @@ export default function Header() {
                 <>
                     <div className="mx-auto px-2 sm:px-6 lg:px-8">
                         <div className="relative flex h-16 items-center justify-between">
-                            <a className="flex justify-start no-underline" href="/">
+                            <a className="flex justify-start no-underline px-3" href={PAGES.home}>
                                 <div className="flex items-center">
                                     <img
                                         className="h-8 w-auto"
@@ -73,7 +79,7 @@ export default function Header() {
                                             <Menu.Item>
                                                 {({ active }) => (
                                                     <a
-                                                        href="/profile"
+                                                        href={PAGES.profile}
                                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm')}
                                                         style={{color: "black"}}
                                                     >

@@ -1,9 +1,9 @@
-import Header from '../components/Header';
+import HeaderNoAuth from '../components/HeaderNoAuth';
 
 export default function NoPage() {
     return (
         <>
-            <Header />
+            <HeaderNoAuth />
             <main className="grid min-h-full place-items-center px-6 py-24 sm:py-32 lg:px-8">
                 <div className="text-center background-secondary p-5 rounded-5">
                     <p className="text-base font-semibold text-indigo-600">404</p>

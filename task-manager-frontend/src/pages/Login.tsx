@@ -1,27 +1,17 @@
 import DarkModeSwitch from "../components/DarkModeSwitch";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
-import {CredentialResponse} from "@react-oauth/google";
 import GoogleLogin from "../components/GoogleLogin";
 import {PAGES} from "../common/constants";
-import {postLoginToken} from "../services/postLoginToken";
 import {LoggedInProps} from "../common/commonTypes";
+import {onGoogleSignIn} from "../services/onGoogleSignIn";
 
 export default function Login({loggedIn, setLoggedIn} : LoggedInProps) {
     const navigate = useNavigate();
 
-    const goHome = () => navigate(PAGES.home);
-
-    // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
-    const onGoogleSignIn = async (res : CredentialResponse) => {
-        const { credential } = res;
-        await postLoginToken(credential!);   //non-null assertion
-        setLoggedIn(true);
-    };
-
     useEffect(() => {
         if (loggedIn) {
-            goHome();
+            navigate(PAGES.home);
         }
     }, [loggedIn]);
 
@@ -81,10 +71,6 @@ export default function Login({loggedIn, setLoggedIn} : LoggedInProps) {
                             </div>
                         </div>
 
-                        <div className="flex justify-center">
-                            <GoogleLogin onGoogleSignIn={onGoogleSignIn} text="Sign in with Google" />
-                        </div>
-
                         <div>
                             <button
                                 type="submit"
@@ -92,6 +78,10 @@ export default function Login({loggedIn, setLoggedIn} : LoggedInProps) {
                             >
                                 Sign in
                             </button>
+                        </div>
+
+                        <div className="flex justify-center">
+                            <GoogleLogin onGoogleSignIn={(cred) => onGoogleSignIn(cred, setLoggedIn)} text="Sign in with Google" />
                         </div>
                     </form>
 

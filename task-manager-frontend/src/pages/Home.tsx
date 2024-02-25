@@ -1,10 +1,11 @@
 import Header from '../components/Header';
 import KanbanBoard from "../components/KanbanBoard";
+import {LoggedInProps} from "../common/commonTypes";
 
-export default function Home() {
+export default function Home({loggedIn, setLoggedIn} : LoggedInProps) {
     return (
       <div className="home">
-          <Header />
+          <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
           <KanbanBoard />
       </div>
     );

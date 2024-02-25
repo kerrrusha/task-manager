@@ -1,8 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import DarkModeSwitch from "../components/DarkModeSwitch";
+import {LoggedInProps} from "../common/commonTypes";
+import GoogleLogin from "../components/GoogleLogin";
+import {onGoogleSignIn} from "../services/onGoogleSignIn";
+import {useNavigate} from "react-router-dom";
+import {PAGES} from "../common/constants";
 
-// TODO implement oauth register
-export default function Register() {
+export default function Register({loggedIn, setLoggedIn} : LoggedInProps) {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (loggedIn) {
+            navigate(PAGES.home);
+        }
+    }, [loggedIn]);
+
     return (
         <div className="background-primary">
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -103,6 +115,10 @@ export default function Register() {
                             >
                                 Sign up
                             </button>
+                        </div>
+
+                        <div className="flex justify-center">
+                            <GoogleLogin onGoogleSignIn={(cred) => onGoogleSignIn(cred, setLoggedIn)} text="Sign up with Google" />
                         </div>
                     </form>
 

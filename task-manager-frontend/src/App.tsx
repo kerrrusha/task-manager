@@ -41,13 +41,13 @@ export default function App() {
   const router = <BrowserRouter>
     <Routes>
       <Route index
-             element={loggedIn ? <Home /> : <Navigate to={PAGES.login} />} />
+             element={loggedIn ? <Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} /> : <Navigate to={PAGES.login} />} />
       <Route path={PAGES.home}
-             element={loggedIn ? <Home /> : <Navigate to={PAGES.login} />} />
+             element={loggedIn ? <Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} /> : <Navigate to={PAGES.login} />} />
       <Route path={PAGES.profile}
-             element={loggedIn ? <Profile /> : <Navigate to={PAGES.login} />} />
+             element={loggedIn ? <Profile loggedIn={loggedIn} setLoggedIn={setLoggedIn} /> : <Navigate to={PAGES.login} />} />
       <Route path={PAGES.login} element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
-      <Route path={PAGES.register} element={<Register />} />
+      <Route path={PAGES.register} element={<Register loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
       <Route path="*" element={<NoPage />} />
     </Routes>
   </BrowserRouter>;
