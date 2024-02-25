@@ -14,4 +14,5 @@ export const API_ENDPOINTS = {
     isAuthorized: '/user/authorized',
     fetchKanban: '/kanban/boards',
     postNewBoard: '/kanban/boards/new',
+    deleteBoard: '/kanban/boards/delete',
 }

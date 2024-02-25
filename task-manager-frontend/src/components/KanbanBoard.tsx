@@ -19,8 +19,12 @@ export default function KanbanBoard() {
             {!kanbanFetched ? <LoadingGif /> : <div className="flex flex-col">
                 <div>
                     <div className="px-5 pt-3 flex flex-row items-center width-not-sidebar">
-                        {activeBoard != null && <><AddNewTaskModal columns={activeBoard.columns} boardId={activeBoard.id} />
-                        <p className="background-primary font-bold fs-4 mb-0 ml-8">{activeBoard.title}</p></>}
+                        {activeBoard != null ?
+                            <>
+                                <AddNewTaskModal columns={activeBoard.columns} boardId={activeBoard.id} />
+                                <p className="background-primary font-bold fs-4 mb-0 ml-8">{activeBoard.title}</p>
+                            </>
+                            : <span className="background-primary">Begin your experience by creating new board</span>}
                     </div>
                     <hr className="w-100 mb-0" />
                 </div>

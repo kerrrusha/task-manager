@@ -3,13 +3,13 @@ import {
     AddNewBoardResponse,
     AddNewColumnResponse,
     AddNewTaskResponse,
-    Column, DragTaskDto, KanbanBoardsResponse,
+    Column, DeleteBoardRequest, DragTaskDto, KanbanBoardsResponse,
     KanbanState,
     Task
 } from "../../common/commonTypes";
 import {mapAddNewTaskResponseToTask} from "../../common/commonUtils";
-import {RootState} from "../store";
 import assert from "assert";
+import {RootState} from "../store";
 
 const initialState: KanbanState = {
     activeBoardId: "",
@@ -22,16 +22,17 @@ function getActiveBoardId(stateCopy : KanbanState) {
         console.warn("Can't choose active board");
         return "";
     }
-    return (!stateCopy.activeBoardId || stateCopy.activeBoardId.length === 0)
-        ? boards[0].id
-        : stateCopy.activeBoardId;
+    if (!stateCopy.activeBoardId || stateCopy.activeBoardId.length === 0) {
+        return boards[0].id;
+    }
+    const activeBoard = findBoardById(stateCopy, stateCopy.activeBoardId);
+    return activeBoard !== undefined ? stateCopy.activeBoardId : boards[0].id;
 }
 
 export const kanbanSlice = createSlice({
     name: 'kanban',
     initialState,
     reducers: {
-
         setKanban: (state, action: PayloadAction<any>) => {
             const dto: KanbanBoardsResponse = action.payload;
 
@@ -58,6 +59,15 @@ export const kanbanSlice = createSlice({
         saveNewBoard: (state, action: PayloadAction<AddNewBoardResponse>) => {
             const savedBoard: AddNewBoardResponse = action.payload;
             state.boards.push(savedBoard);
+            state.activeBoardId = getActiveBoardId({ ...state });
+        },
+        deleteBoardById: (state, action: PayloadAction<DeleteBoardRequest>) => {
+            const deleteBoardDto: DeleteBoardRequest = action.payload;
+
+            const deletedBoardIndex = state.boards.findIndex(board => board.id === deleteBoardDto.boardId);
+            state.boards.splice(deletedBoardIndex, 1);
+            state.activeBoardId = getActiveBoardId({ ...state });
+            console.log("state.activeBoardId", state.activeBoardId);
         },
         setActiveBoardId: (state, action: PayloadAction<string>) => {
             state.activeBoardId = action.payload;
@@ -83,9 +93,11 @@ export const kanbanSlice = createSlice({
     },
 });
 
-export const { addNewTask, addNewColumn, setActiveBoardId, saveNewBoard, dragTask, setKanban } = kanbanSlice.actions;
+export const { addNewTask, addNewColumn, setActiveBoardId, saveNewBoard, dragTask, setKanban, deleteBoardById } = kanbanSlice.actions;
 
 export const selectActiveBoardId = (state: RootState) => state.kanban.activeBoardId;
 
-export const selectActiveBoard = (state: RootState) =>
-    state.kanban.boards.filter(board => board.id === selectActiveBoardId(state))[0];
+export const selectActiveBoard = (state: RootState) => findBoardById(state.kanban, selectActiveBoardId(state));
+
+const findBoardById = (state: KanbanState, id: string) =>
+    state.boards.filter(board => board.id === id)[0];

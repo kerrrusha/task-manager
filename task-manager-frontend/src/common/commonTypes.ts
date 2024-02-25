@@ -66,6 +66,10 @@ export type AddNewBoardResponse = {
     columns: Array<Column>,
 }
 
+export type DeleteBoardRequest = {
+    boardId: string;
+}
+
 export type KanbanState = {
     activeBoardId: string,
     boards: Array<Board>,

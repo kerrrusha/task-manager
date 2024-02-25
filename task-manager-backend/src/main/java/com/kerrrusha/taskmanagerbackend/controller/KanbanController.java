@@ -2,6 +2,7 @@ package com.kerrrusha.taskmanagerbackend.controller;
 
 import com.kerrrusha.taskmanagerbackend.domain.User;
 import com.kerrrusha.taskmanagerbackend.dto.board.request.CreateBoardRequestDto;
+import com.kerrrusha.taskmanagerbackend.dto.board.request.DeleteBoardRequestDto;
 import com.kerrrusha.taskmanagerbackend.dto.board.response.BoardResponseDto;
 import com.kerrrusha.taskmanagerbackend.dto.board.response.KanbanBoardsResponseDto;
 import com.kerrrusha.taskmanagerbackend.dto.column.request.CreateColumnRequestDto;
@@ -32,6 +33,12 @@ public class KanbanController {
     @PostMapping("/boards/new")
     public BoardResponseDto createBoard(@Valid @RequestBody CreateBoardRequestDto boardRequestDto) {
         return kanbanService.saveBoard(boardRequestDto);
+    }
+
+    @PostMapping("/boards/delete")
+    public void deleteBoard(@Valid @RequestBody DeleteBoardRequestDto boardRequestDto, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        kanbanService.deleteBoard(boardRequestDto, user.getId());
     }
 
     @PostMapping("/columns/new")
