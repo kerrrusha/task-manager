@@ -5,20 +5,19 @@ import {useNavigate} from "react-router-dom";
 import {logout} from "../services/logout";
 import {PAGES} from "../common/constants";
 import {LoggedInProps} from "../common/commonTypes";
+import {useAppSelector} from "../hooks/useAppSelector";
+import {selectUser} from "../redux/slices/authSlice";
+import useFetchUser from "../hooks/useFetchUser";
+import LoadingGif from "./LoadingGif";
 
 function classNames(...classes: string[]): string {
     return classes.filter(Boolean).join(' ');
 }
 
-const data = {
-    userId: "kjsdfbgsjdfhglksdfgbjvkldfnb",
-    profileUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    firstName: "Tom",
-    lastName: "Cook",
-}
-
 export default function Header({loggedIn, setLoggedIn} : LoggedInProps) {
+    const [userFetched] = useFetchUser();
     const navigate = useNavigate();
+    const user = useAppSelector(selectUser)!;
 
     function signOut() {
         logout().then(() => {
@@ -51,19 +50,19 @@ export default function Header({loggedIn, setLoggedIn} : LoggedInProps) {
                             <div className="flex flex-1 absolute inset-y-0 right-0 justify-end items-center sm:static sm:inset-auto sm:ml-6">
                                 <DarkModeSwitch />
 
-                                <Menu as="div" className="relative ml-5 mr-2 ">
+                                {!userFetched ? <LoadingGif /> : <Menu as="div" className="relative ml-5 mr-2 ">
                                     <Menu.Button className="pointer relative flex flex-row items-center rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                         <span className="absolute -inset-1.5" />
                                         <span className="sr-only">Open user menu</span>
                                         <img
                                             className="h-8 w-8 rounded-full"
-                                            src={data.profileUrl}
+                                            src={user.profilePhotoUrl}
                                             alt=""
                                         />
                                         <span className="ml-3 block text-sm font-medium leading-6">
-                                            <span>{data.firstName}</span>
+                                            <span>{user.firstName}</span>
                                             <span> </span>
-                                            <span>{data.lastName}</span>
+                                            <span>{user.lastName}</span>
                                         </span>
                                     </Menu.Button>
                                     <Transition
@@ -99,7 +98,7 @@ export default function Header({loggedIn, setLoggedIn} : LoggedInProps) {
                                             </Menu.Item>
                                         </Menu.Items>
                                     </Transition>
-                                </Menu>
+                                </Menu>}
                             </div>
                         </div>
                     </div>
