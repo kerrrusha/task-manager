@@ -1,24 +1,21 @@
 import Header from '../components/Header';
 import SaveableInput from "../components/SaveableInput";
 import {LoggedInProps} from "../common/commonTypes";
+import useFetchUser from "../hooks/useFetchUser";
+import {useAppSelector} from "../hooks/useAppSelector";
+import {selectUser} from "../redux/slices/authSlice";
+import LoadingGif from "../components/LoadingGif";
 
 export default function Profile({loggedIn, setLoggedIn} : LoggedInProps) {
-    //todo store in redis
-    // const [user, setUser] = useUserInfo();
-
-    const user = {
-        firstName: "John",
-        lastName: "Doe",
-        email: "XXXXXXXXXXXXXXXXXX",
-        profilePhotoUrl: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    }
+    const [userFetched] = useFetchUser();
+    const user = useAppSelector(selectUser)!;
     
     return (
         <>
             <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
             <div className="background-primary mx-auto max-w-7xl px-4 py-5 sm:px-6 sm:py-32 lg:px-8">
                 <div className="mx-auto max-w-2xl">
-                    <form>
+                    {!userFetched ? <LoadingGif /> : <form>
                         <div className="space-y-12">
                             <h4 className="text-header font-semibold leading-7 border-b p-2">Profile</h4>
                             <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -97,7 +94,7 @@ export default function Profile({loggedIn, setLoggedIn} : LoggedInProps) {
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </form>}
                 </div>
             </div>
         </>

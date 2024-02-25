@@ -5,7 +5,7 @@ export const LIGHT : string = 'light';
 const THEME : string = 'theme';
 
 export default function useDarkMode() : [string, Function] {
-    const [targetTheme, setTargetTheme] = useState(DARK);
+    const [targetTheme, setTargetTheme] = useState(localStorage.theme);
 
     const currentTheme = targetTheme === DARK ? LIGHT : DARK;
     useEffect(() => {
