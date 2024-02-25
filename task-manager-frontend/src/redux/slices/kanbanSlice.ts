@@ -4,7 +4,7 @@ import {
     AddNewColumnResponse,
     AddNewTaskResponse,
     Board,
-    Column, DragTaskDto,
+    Column, DragTaskDto, KanbanBoardsResponse,
     KanbanState,
     Task
 } from "../../common/commonTypes";
@@ -87,6 +87,11 @@ export const kanbanSlice = createSlice({
     name: 'kanban',
     initialState,
     reducers: {
+        setKanban: (state, action: PayloadAction<any>) => {
+            const dto: KanbanBoardsResponse = action.payload;
+
+            state.boards = dto.boards;
+        },
         addNewTask: (state, action: PayloadAction<AddNewTaskResponse>) => {
             const dto: AddNewTaskResponse = action.payload;
             const task: Task = mapAddNewTaskResponseToTask(dto);
@@ -134,6 +139,6 @@ export const kanbanSlice = createSlice({
     },
 });
 
-export const { addNewTask, addNewColumn, setActiveBoardId, addNewBoard, dragTask } = kanbanSlice.actions;
+export const { addNewTask, addNewColumn, setActiveBoardId, addNewBoard, dragTask, setKanban } = kanbanSlice.actions;
 
 export const selectActiveBoard = (state: RootState) => state.kanban.boards.filter(board => board.id === state.kanban.activeBoardId)[0];

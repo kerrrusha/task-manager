@@ -1,21 +1,21 @@
 import {useEffect, useState} from "react";
-import {getUserInfo} from "../services/getUserInfo";
+import {fetchUserInfo} from "../services/fetchUserInfo";
 import {setUser} from "../redux/slices/authSlice";
 import {useAppDispatch} from "./useAppDispatch";
 
 export default function useFetchUser() : [boolean] {
     const dispatch = useAppDispatch();
-    const [userFetched, setUserFetched] = useState(false);
+    const [fetched, setFetched] = useState(false);
 
     useEffect(() => {
-        getUserInfo().then(user => {
+        fetchUserInfo().then(user => {
             console.log(`Fetched user:`);
             console.log(user);
 
             dispatch(setUser(user));
-            setUserFetched(true);
+            setFetched(true);
         });
     }, []);
 
-    return [userFetched];
+    return [fetched];
 }

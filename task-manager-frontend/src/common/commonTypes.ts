@@ -77,6 +77,10 @@ export type Board = {
     columns: Array<Column>,
 };
 
+export type KanbanBoardsResponse = {
+    boards: Array<Board>,
+};
+
 export type Column = {
     id: string,
     title: string,

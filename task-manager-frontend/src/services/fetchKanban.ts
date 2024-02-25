@@ -1,8 +1,8 @@
 import {API_ENDPOINTS} from "../common/constants";
 
-export async function getUserInfo() {
+export async function fetchKanban() {
     const API_URL = process.env.REACT_APP_BACKEND_ORIGIN;
-    const path = API_ENDPOINTS.getOAuthUser;
+    const path = API_ENDPOINTS.fetchKanban;
 
     const response = await fetch(`${API_URL}${path}`, {
         headers: {

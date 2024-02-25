@@ -13,4 +13,5 @@ export const API_ENDPOINTS = {
     googleOAuthLogin: '/oauth/google/login',
     logout: '/auth/logout',
     isAuthorized: '/user/authorized',
+    fetchKanban: '/kanban/boards',
 }
