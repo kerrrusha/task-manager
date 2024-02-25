@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import DarkModeSwitch from "./DarkModeSwitch";
 import {useNavigate} from "react-router-dom";
-import {logout} from "../api/logout";
+import {logout} from "../services/logout";
 
 function classNames(...classes: string[]): string {
     return classes.filter(Boolean).join(' ');
