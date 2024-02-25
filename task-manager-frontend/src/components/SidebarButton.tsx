@@ -1,6 +1,6 @@
 import {Board} from "../common/commonTypes";
 import {useAppDispatch} from "../hooks/useAppDispatch";
-import {setActiveBoardId} from "../redux/slices/kanbanSlice";
+import {selectActiveBoardId, setActiveBoardId} from "../redux/slices/kanbanSlice";
 import {useAppSelector} from "../hooks/useAppSelector";
 
 interface SidebarButtonProps {
@@ -8,7 +8,7 @@ interface SidebarButtonProps {
 }
 
 export default function SidebarButton({board} : SidebarButtonProps) {
-    const activeBoardId = useAppSelector((state) => state.kanban.activeBoardId);
+    const activeBoardId = useAppSelector(selectActiveBoardId);
     const dispatch = useAppDispatch();
 
     const isActive = board.id === activeBoardId;
