@@ -27,6 +27,8 @@ import static org.springframework.security.web.csrf.CookieCsrfTokenRepository.wi
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private static final String[] AUTH_WHITELIST = new String[] {"/oauth/**", "/auth/**", "/swagger-ui/**"};
+
     private final FilterChainExceptionHandler filterChainExceptionHandler;
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final ReadyUserDetailsService userDetailsService;
@@ -37,14 +39,13 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(withHttpOnlyFalse())
-                        .ignoringRequestMatchers("/oauth/google/login"))
+                        .ignoringRequestMatchers(AUTH_WHITELIST))
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/oauth/**", "/auth/**", "/swagger-ui/**")
+                                .requestMatchers(AUTH_WHITELIST)
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())
-                .logout(logout -> logout.logoutUrl("/logout"))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(filterChainExceptionHandler, LogoutFilter.class)
