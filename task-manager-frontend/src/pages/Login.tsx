@@ -1,16 +1,13 @@
 import DarkModeSwitch from "../components/DarkModeSwitch";
 import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {CredentialResponse} from "@react-oauth/google";
 import GoogleLogin from "../components/GoogleLogin";
 import {PAGES} from "../common/constants";
-import {postLoginToken} from "../api/postLoginToken";
+import {postLoginToken} from "../services/postLoginToken";
+import {LoggedInProps} from "../common/commonTypes";
 
-export interface LoginProps {
-    isLoggedIn: boolean;
-}
-
-export default function Login({ isLoggedIn } : LoginProps) {
+export default function Login({loggedIn} : LoggedInProps) {
     const navigate = useNavigate();
 
     // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
@@ -20,11 +17,12 @@ export default function Login({ isLoggedIn } : LoginProps) {
     };
 
     useEffect(() => {
-        if (!isLoggedIn) {
+        if (!loggedIn) {
             return;
         }
+
         navigate(PAGES.home);
-    }, [isLoggedIn, navigate]);
+    }, []);
 
     return (
         <div className="background-primary">
@@ -98,7 +96,7 @@ export default function Login({ isLoggedIn } : LoginProps) {
 
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Not registered yet?{' '}
-                        <a href="/Register.tsx" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                        <a href="/register" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                             Sign Up
                         </a>
                     </p>
