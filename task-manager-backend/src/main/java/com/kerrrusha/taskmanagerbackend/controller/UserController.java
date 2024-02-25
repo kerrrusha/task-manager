@@ -31,8 +31,8 @@ public class UserController {
 
     @GetMapping("/info")
     public UserResponseDto getUserInfo(Principal principal) {
-        String userId = principal.getName();
-        return userService.findByEmail(userId);
+        String email = principal.getName();
+        return userService.findByEmail(email);
     }
 
     @ResponseStatus(HttpStatus.OK)

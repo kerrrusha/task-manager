@@ -9,7 +9,7 @@ export const PAGES = {
 }
 
 export const API_ENDPOINTS = {
-    getOAuthUser: '/oauth/user/info',
+    getOAuthUser: '/user/info',
     googleOAuthLogin: '/oauth/google/login',
     logout: '/auth/logout',
     isAuthorized: '/user/authorized',
