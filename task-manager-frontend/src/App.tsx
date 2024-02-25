@@ -4,38 +4,40 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import NoPage from './pages/NoPage';
 import Profile from "./pages/Profile";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {PAGES} from "./common/constants";
-import {getUserInfo} from "./api/getUserInfo";
+import {getUserInfo} from "./services/getUserInfo";
 import {useAppDispatch} from "./hooks/useAppDispatch";
-import {useAppSelector} from "./hooks/useAppSelector";
-import {fetchUser, selectUser} from "./redux/slices/authSlice";
+import {setUser} from "./redux/slices/authSlice";
+import {isLoggedIn} from "./services/isLoggedIn";
 
 export default function App() {
-  // console.log("App.tsx called");
-  //
-  // const user = useAppSelector(selectUser);
-  // const dispatch = useAppDispatch();
-  //
-  // useEffect(() => {
-  //   dispatch(fetchUser());
-  // }, [dispatch]);
-  //
-  // const isLoggedIn = !!user;
-  //
-  // console.log(`App.tsx: user - ${user}`);
+  const dispatch = useAppDispatch();
+  const loggedIn = isLoggedIn();
 
-  const isLoggedIn = false;
-  
+  useEffect(() => {
+    if (!loggedIn) {
+      return;
+    }
+    getUserInfo().then(user => {
+      console.log(`Logged user:`);
+      console.log(user);
+
+      dispatch(setUser(user));
+    });
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route index element={<Home />} />
-        <Route path={PAGES.home} element={<Home />} />
-        <Route path={PAGES.login} element={<Login isLoggedIn={isLoggedIn} />} />
-        <Route path={PAGES.register} element={<Register isLoggedIn={isLoggedIn} />} />
+        <Route index
+               element={loggedIn ? <Home /> : <Navigate to={PAGES.login} />} />
+        <Route path={PAGES.home}
+               element={loggedIn ? <Home /> : <Navigate to={PAGES.login} />} />
         <Route path={PAGES.profile}
-               element={isLoggedIn ? <Profile isLoggedIn={isLoggedIn} /> : <Navigate to={PAGES.login} />} />
+               element={loggedIn ? <Profile /> : <Navigate to={PAGES.login} />} />
+        <Route path={PAGES.login} element={<Login />} />
+        <Route path={PAGES.register} element={<Register />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>

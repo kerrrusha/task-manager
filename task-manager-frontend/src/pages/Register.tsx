@@ -1,9 +1,8 @@
 import React from 'react';
 import DarkModeSwitch from "../components/DarkModeSwitch";
-import {LoginProps} from "./Login";
 
 // TODO implement oauth register
-export default function Register({ isLoggedIn } : LoginProps) {
+export default function Register() {
     return (
         <div className="background-primary">
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
