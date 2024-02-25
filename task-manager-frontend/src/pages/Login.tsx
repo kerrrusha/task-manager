@@ -7,21 +7,23 @@ import {PAGES} from "../common/constants";
 import {postLoginToken} from "../services/postLoginToken";
 import {LoggedInProps} from "../common/commonTypes";
 
-export default function Login({loggedIn} : LoggedInProps) {
+export default function Login({loggedIn, setLoggedIn} : LoggedInProps) {
     const navigate = useNavigate();
+
+    const goHome = () => navigate(PAGES.home);
 
     // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
     const onGoogleSignIn = async (res : CredentialResponse) => {
         const { credential } = res;
         await postLoginToken(credential!);   //non-null assertion
-        navigate(PAGES.home);
+        setLoggedIn(true);
     };
 
     useEffect(() => {
         if (loggedIn) {
-            navigate(PAGES.home);
+            goHome();
         }
-    }, []);
+    }, [loggedIn]);
 
     return (
         <div className="background-primary">

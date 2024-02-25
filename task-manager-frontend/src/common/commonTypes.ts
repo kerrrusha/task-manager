@@ -1,3 +1,5 @@
+import {Dispatch} from "react";
+
 export type InputTarget = {
     target: HTMLInputElement;
 }
@@ -16,6 +18,7 @@ export type TextAreaTarget = {
 
 export type LoggedInProps = {
     loggedIn: boolean;
+    setLoggedIn: Dispatch<any>;
 }
 
 export type AddNewTaskRequest = {

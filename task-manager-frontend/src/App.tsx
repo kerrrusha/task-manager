@@ -10,6 +10,7 @@ import {getUserInfo} from "./services/getUserInfo";
 import {useAppDispatch} from "./hooks/useAppDispatch";
 import {setUser} from "./redux/slices/authSlice";
 import {isLoggedIn} from "./services/isLoggedIn";
+import Loading from "./components/Loading";
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -35,7 +36,7 @@ export default function App() {
     });
   }, [loggedInFetched]);
 
-  const loading = <div>Loading...</div>;
+  const loading = <Loading />;
 
   const router = <BrowserRouter>
     <Routes>
@@ -45,7 +46,7 @@ export default function App() {
              element={loggedIn ? <Home /> : <Navigate to={PAGES.login} />} />
       <Route path={PAGES.profile}
              element={loggedIn ? <Profile /> : <Navigate to={PAGES.login} />} />
-      <Route path={PAGES.login} element={<Login loggedIn={loggedIn} />} />
+      <Route path={PAGES.login} element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
       <Route path={PAGES.register} element={<Register />} />
       <Route path="*" element={<NoPage />} />
     </Routes>
