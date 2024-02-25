@@ -1,6 +1,6 @@
 import DarkModeSwitch from "../components/DarkModeSwitch";
 import {useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {CredentialResponse} from "@react-oauth/google";
 import GoogleLogin from "../components/GoogleLogin";
 import {PAGES} from "../common/constants";
@@ -14,14 +14,13 @@ export default function Login({loggedIn} : LoggedInProps) {
     const onGoogleSignIn = async (res : CredentialResponse) => {
         const { credential } = res;
         await postLoginToken(credential!);   //non-null assertion
+        navigate(PAGES.home);
     };
 
     useEffect(() => {
-        if (!loggedIn) {
-            return;
+        if (loggedIn) {
+            navigate(PAGES.home);
         }
-
-        navigate(PAGES.home);
     }, []);
 
     return (

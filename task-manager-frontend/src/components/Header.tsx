@@ -19,7 +19,7 @@ export default function Header() {
     const navigate = useNavigate();
 
     function signOut() {
-        console.log(`Signing out userId=${data.userId}`);
+        console.log(`Signing out`);
         logout().then(r => {
             console.log(`logged out: ${r}`)
             navigate("/")

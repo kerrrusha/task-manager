@@ -14,11 +14,12 @@ import {isLoggedIn} from "./services/isLoggedIn";
 export default function App() {
   const dispatch = useAppDispatch();
   const [loggedIn, setLoggedIn] = useState<any>(undefined);
+  const [loggedInFetched, setLoggedInFetched] = useState<boolean>(false);
 
   useEffect(() => {
     const initLogin = async () => {
       setLoggedIn(await isLoggedIn());
-      console.log(`Logged in: ${loggedIn}`);
+      setLoggedInFetched(true);
     };
     initLogin();
 
@@ -32,21 +33,25 @@ export default function App() {
 
       dispatch(setUser(user));
     });
-  }, []);
+  }, [loggedInFetched]);
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route index
-               element={loggedIn ? <Home /> : <Navigate to={PAGES.login} />} />
-        <Route path={PAGES.home}
-               element={loggedIn ? <Home /> : <Navigate to={PAGES.login} />} />
-        <Route path={PAGES.profile}
-               element={loggedIn ? <Profile /> : <Navigate to={PAGES.login} />} />
-        <Route path={PAGES.login} element={<Login loggedIn={loggedIn} />} />
-        <Route path={PAGES.register} element={<Register />} />
-        <Route path="*" element={<NoPage />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  const loading = <div>Loading...</div>;
+
+  const router = <BrowserRouter>
+    <Routes>
+      <Route index
+             element={loggedIn ? <Home /> : <Navigate to={PAGES.login} />} />
+      <Route path={PAGES.home}
+             element={loggedIn ? <Home /> : <Navigate to={PAGES.login} />} />
+      <Route path={PAGES.profile}
+             element={loggedIn ? <Profile /> : <Navigate to={PAGES.login} />} />
+      <Route path={PAGES.login} element={<Login loggedIn={loggedIn} />} />
+      <Route path={PAGES.register} element={<Register />} />
+      <Route path="*" element={<NoPage />} />
+    </Routes>
+  </BrowserRouter>;
+
+  console.log(`loggedInFetched: ${loggedInFetched}`);
+  console.log(`loggedIn: ${loggedIn}`);
+  return loggedInFetched ? router : loading;
 }

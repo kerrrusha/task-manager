@@ -5,6 +5,7 @@ export const logout = async () => {
     const path = API_ENDPOINTS.logout;
 
     await fetch(`${API_URL}${path}`, {
-        method: 'POST'
+        method: 'POST',
+        credentials: 'include',
     });
 };
