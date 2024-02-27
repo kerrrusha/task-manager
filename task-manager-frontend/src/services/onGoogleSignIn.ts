@@ -5,6 +5,6 @@ import {postLoginToken} from "./postLoginToken";
 // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
 export const onGoogleSignIn = async (res : CredentialResponse, setLoggedIn : Dispatch<any>) => {
     const { credential } = res;
-    await postLoginToken(credential!);   //non-null assertion
-    setLoggedIn(true);
+    const loggedIn = await postLoginToken(credential!);   //non-null assertion
+    setLoggedIn(loggedIn);
 };

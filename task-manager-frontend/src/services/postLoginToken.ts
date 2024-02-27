@@ -14,5 +14,5 @@ export const postLoginToken = async (idToken : string) => {
         body: JSON.stringify({"idToken" : idToken}),
     });
     console.log("Login status: " + response.status);
-    return true;
+    return response.status === 200;
 };

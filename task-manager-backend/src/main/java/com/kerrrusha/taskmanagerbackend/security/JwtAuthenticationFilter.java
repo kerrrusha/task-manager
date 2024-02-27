@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     .filter(cookie -> cookie.getName().equals(AUTH_TOKEN))
                     .findAny().orElse(null);
 
-        if (authCookie == null) {
+        if (authCookie == null || jwtService.isTokenExpired(authCookie.getValue())) {
             filterChain.doFilter(request, response);
             return;
         }
