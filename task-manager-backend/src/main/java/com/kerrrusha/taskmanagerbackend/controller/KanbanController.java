@@ -6,6 +6,7 @@ import com.kerrrusha.taskmanagerbackend.dto.board.request.DeleteBoardRequestDto;
 import com.kerrrusha.taskmanagerbackend.dto.board.response.BoardResponseDto;
 import com.kerrrusha.taskmanagerbackend.dto.board.response.KanbanBoardsResponseDto;
 import com.kerrrusha.taskmanagerbackend.dto.column.request.CreateColumnRequestDto;
+import com.kerrrusha.taskmanagerbackend.dto.column.response.ColumnResponseDto;
 import com.kerrrusha.taskmanagerbackend.dto.task.request.CreateTaskRequestDto;
 import com.kerrrusha.taskmanagerbackend.service.KanbanService;
 import jakarta.validation.Valid;
@@ -42,7 +43,7 @@ public class KanbanController {
     }
 
     @PostMapping("/columns/new")
-    public BoardResponseDto createColumn(@Valid @RequestBody CreateColumnRequestDto columnRequestDto, Authentication authentication) {
+    public ColumnResponseDto createColumn(@Valid @RequestBody CreateColumnRequestDto columnRequestDto, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return kanbanService.addColumn(columnRequestDto, user.getId());
     }

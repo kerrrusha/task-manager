@@ -6,8 +6,10 @@ import {
 } from "../common/commonTypes";
 import {generateRandomMongoId, rgbToString} from "../common/commonUtils";
 import {useAppDispatch} from "../hooks/useAppDispatch";
-import {addNewColumn} from "../redux/slices/kanbanSlice";
+import {addNewColumn, addNewBoard} from "../redux/slices/kanbanSlice";
 import { RgbColorPicker } from "react-colorful";
+import {postNewBoard} from "../services/postNewBoard";
+import {postNewColumn} from "../services/postNewColumn";
 
 type AddNewColumnModalProps = {
     boardId: string,
@@ -29,15 +31,12 @@ export default function AddNewColumnModal({boardId} : AddNewColumnModalProps) {
             background: rgbToString(background),
         }
 
-        console.log("Saving new column:");
-        console.log(requestBody);
-        const savedColumn: AddNewColumnResponse = {
-            id: generateRandomMongoId(),
-            ...requestBody,
-            tasks: [],
-        };
+        postNewColumn(requestBody).then(savedColumn => {
+            console.log("Saved column:");
+            console.log(savedColumn);
 
-        dispatch(addNewColumn(savedColumn));
+            dispatch(addNewColumn({boardId, ...savedColumn}));
+        });
 
         setShowModal(false);
     };

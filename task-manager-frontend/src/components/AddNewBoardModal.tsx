@@ -4,7 +4,7 @@ import {
     InputTarget,
 } from "../common/commonTypes";
 import {useAppDispatch} from "../hooks/useAppDispatch";
-import {saveNewBoard} from "../redux/slices/kanbanSlice";
+import {addNewBoard} from "../redux/slices/kanbanSlice";
 import {postNewBoard} from "../services/postNewBoard";
 
 export default function AddNewBoardModal() {
@@ -24,7 +24,7 @@ export default function AddNewBoardModal() {
             console.log("Saved board:");
             console.log(savedBoard);
 
-            dispatch(saveNewBoard(savedBoard));
+            dispatch(addNewBoard(savedBoard));
         });
 
         setShowModal(false);

@@ -56,7 +56,7 @@ export const kanbanSlice = createSlice({
 
             state.boards[boardIndex].columns.push(column);
         },
-        saveNewBoard: (state, action: PayloadAction<AddNewBoardResponse>) => {
+        addNewBoard: (state, action: PayloadAction<AddNewBoardResponse>) => {
             const savedBoard: AddNewBoardResponse = action.payload;
             state.boards.push(savedBoard);
             state.activeBoardId = getActiveBoardId({ ...state });
@@ -93,7 +93,7 @@ export const kanbanSlice = createSlice({
     },
 });
 
-export const { addNewTask, addNewColumn, setActiveBoardId, saveNewBoard, dragTask, setKanban, deleteBoardById } = kanbanSlice.actions;
+export const { addNewTask, addNewColumn, setActiveBoardId, addNewBoard, dragTask, setKanban, deleteBoardById } = kanbanSlice.actions;
 
 export const selectActiveBoardId = (state: RootState) => state.kanban.activeBoardId;
 
