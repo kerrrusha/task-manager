@@ -4,10 +4,11 @@ import {InputTarget} from "../common/commonTypes";
 
 type SaveableInputProp = {
     label: string;
+    postValue: (value: string) => Promise<any>;
     initialValue_? : string;
 }
 
-export default function SaveableInput({label, initialValue_} : SaveableInputProp) {
+export default function SaveableInput({label, postValue, initialValue_} : SaveableInputProp) {
     const [initialValue, setInitialValue] = useState(initialValue_);
     const [value, setValue] = useState(initialValue);
     const [buttonIsActive, setButtonIsActive] = useState(false);
@@ -27,9 +28,14 @@ export default function SaveableInput({label, initialValue_} : SaveableInputProp
         }
 
         setErrorMessage('');
-        console.log(`Saving value on the server: ${value}`);
-        setInitialValue(value);
-        setButtonIsActive(false);
+
+        postValue(value!).then(result => {
+            console.log("Updated value:");
+            console.log(result);
+
+            setInitialValue(value);
+            setButtonIsActive(false);
+        });
     };
 
     function validateValue() : string | null {

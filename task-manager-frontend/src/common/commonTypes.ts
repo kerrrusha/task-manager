@@ -73,6 +73,12 @@ export type DragTaskRequest = {
     taskId: string
 }
 
+export type UserUpdateRequest = {
+    userId: string,
+    firstName?: string,
+    lastName?: string,
+}
+
 export type KanbanState = {
     activeBoardId: string,
     boards: Array<Board>,

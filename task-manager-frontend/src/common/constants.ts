@@ -18,4 +18,5 @@ export const API_ENDPOINTS = {
     postNewColumn: '/kanban/columns/new',
     postNewTask: '/kanban/tasks/new',
     postDragTask: '/kanban/tasks/drag',
+    postUpdateUser: '/user/update',
 }

@@ -1,14 +1,40 @@
 import Header from '../components/Header';
 import SaveableInput from "../components/SaveableInput";
-import {LoggedInProps} from "../common/commonTypes";
+import {LoggedInProps, User, UserUpdateRequest} from "../common/commonTypes";
 import useFetchUser from "../hooks/useFetchUser";
 import {useAppSelector} from "../hooks/useAppSelector";
-import {selectUser} from "../redux/slices/authSlice";
+import {selectUser, setUser} from "../redux/slices/authSlice";
 import LoadingGif from "../components/LoadingGif";
+import {postUpdateUser} from "../services/postUpdateUser";
+import {useAppDispatch} from "../hooks/useAppDispatch";
 
 export default function Profile({loggedIn, setLoggedIn} : LoggedInProps) {
     const [userFetched] = useFetchUser();
-    const user = useAppSelector(selectUser)!;
+    const user : User = useAppSelector(selectUser)!;
+    const dispatch = useAppDispatch();
+
+    const updateUser = (requestBody : UserUpdateRequest) => {
+        return postUpdateUser(requestBody).then(updatedUser => {
+            console.log("Updated user:");
+            console.log(updatedUser);
+
+            dispatch(setUser(updatedUser));
+        });
+    }
+
+    const updateFirstName = (newValue : string) => {
+        return updateUser({
+            userId: user.id,
+            firstName: newValue
+        });
+    };
+
+    const updateLastName = (newValue : string) => {
+        return updateUser({
+            userId: user.id,
+            lastName: newValue
+        });
+    };
     
     return (
         <>
@@ -49,11 +75,11 @@ export default function Profile({loggedIn, setLoggedIn} : LoggedInProps) {
                             <div className="pb-12 mt-0">
                                 <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                     <div className="sm:col-span-3">
-                                        <SaveableInput label="First name" initialValue_={user.firstName} />
+                                        <SaveableInput label="First name" postValue={updateFirstName} initialValue_={user.firstName} />
                                     </div>
 
                                     <div className="sm:col-span-3">
-                                        <SaveableInput label="Last name" initialValue_={user.lastName} />
+                                        <SaveableInput label="Last name" postValue={updateLastName} initialValue_={user.lastName} />
                                     </div>
 
                                     <div className="sm:col-span-4">
