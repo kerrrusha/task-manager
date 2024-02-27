@@ -23,14 +23,6 @@ spring:
   output:
     ansi:
       enabled: always
-  security:
-    oauth2:
-      client:
-        registration:
-          github:
-            clientId: 6987adaa7792481e88df
-            clientSecret: aa561776aa17b81916754503600240d72743a1ff
-            scope: email, public_profile
 
 logging:
   level:
