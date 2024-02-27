@@ -9,6 +9,7 @@ import com.kerrrusha.taskmanagerbackend.dto.board.response.BoardResponseDto;
 import com.kerrrusha.taskmanagerbackend.dto.column.request.CreateColumnRequestDto;
 import com.kerrrusha.taskmanagerbackend.dto.column.response.ColumnResponseDto;
 import com.kerrrusha.taskmanagerbackend.dto.task.request.CreateTaskRequestDto;
+import com.kerrrusha.taskmanagerbackend.dto.task.response.TaskResponseDto;
 import com.kerrrusha.taskmanagerbackend.mapper.BoardMapper;
 import com.kerrrusha.taskmanagerbackend.mapper.ColumnMapper;
 import com.kerrrusha.taskmanagerbackend.mapper.TaskMapper;
@@ -60,15 +61,14 @@ public class KanbanServiceImpl implements KanbanService {
     }
 
     @Override
-    public BoardResponseDto addTask(CreateTaskRequestDto taskRequestDto, String userId) {
+    public TaskResponseDto addTask(CreateTaskRequestDto taskRequestDto, String userId) {
         Column column = columnRepository.findByIdAndCreatedByUserId(taskRequestDto.getColumnId(), userId).orElseThrow();
 
         Task task = taskMapper.toEntity(taskRequestDto);
         task.setColumnId(column.getId());
         taskRepository.save(task);
 
-        Board board = boardRepository.findById(column.getBoardId()).orElseThrow();
-        return boardMapper.toDto(board);
+        return taskMapper.toDto(task);
     }
 
     @Override

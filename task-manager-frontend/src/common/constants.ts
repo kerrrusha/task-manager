@@ -1,5 +1,3 @@
-import {postNewColumn} from "../services/postNewColumn";
-
 export const MIN_VALUE_LENGTH = 3;
 
 export const PAGES = {
@@ -17,5 +15,6 @@ export const API_ENDPOINTS = {
     fetchKanban: '/kanban/boards',
     postNewBoard: '/kanban/boards/new',
     postNewColumn: '/kanban/columns/new',
+    postNewTask: '/kanban/tasks/new',
     deleteBoard: '/kanban/boards/delete',
 }

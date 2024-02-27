@@ -6,6 +6,7 @@ import com.kerrrusha.taskmanagerbackend.dto.board.response.BoardResponseDto;
 import com.kerrrusha.taskmanagerbackend.dto.column.request.CreateColumnRequestDto;
 import com.kerrrusha.taskmanagerbackend.dto.column.response.ColumnResponseDto;
 import com.kerrrusha.taskmanagerbackend.dto.task.request.CreateTaskRequestDto;
+import com.kerrrusha.taskmanagerbackend.dto.task.response.TaskResponseDto;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface KanbanService {
 
     ColumnResponseDto addColumn(CreateColumnRequestDto columnRequestDto, String userId);
 
-    BoardResponseDto addTask(CreateTaskRequestDto columnRequestDto, String userId);
+    TaskResponseDto addTask(CreateTaskRequestDto columnRequestDto, String userId);
 
     void deleteBoard(DeleteBoardRequestDto boardRequestDto, String userId);
 }

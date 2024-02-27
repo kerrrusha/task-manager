@@ -8,6 +8,7 @@ import com.kerrrusha.taskmanagerbackend.dto.board.response.KanbanBoardsResponseD
 import com.kerrrusha.taskmanagerbackend.dto.column.request.CreateColumnRequestDto;
 import com.kerrrusha.taskmanagerbackend.dto.column.response.ColumnResponseDto;
 import com.kerrrusha.taskmanagerbackend.dto.task.request.CreateTaskRequestDto;
+import com.kerrrusha.taskmanagerbackend.dto.task.response.TaskResponseDto;
 import com.kerrrusha.taskmanagerbackend.service.KanbanService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -49,7 +50,7 @@ public class KanbanController {
     }
 
     @PostMapping("/tasks/new")
-    public BoardResponseDto createTask(@Valid @RequestBody CreateTaskRequestDto taskRequestDto, Authentication authentication) {
+    public TaskResponseDto createTask(@Valid @RequestBody CreateTaskRequestDto taskRequestDto, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return kanbanService.addTask(taskRequestDto, user.getId());
     }

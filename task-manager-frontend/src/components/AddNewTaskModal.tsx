@@ -1,14 +1,14 @@
 import {FormEvent, useState} from "react";
 import {
     AddNewTaskRequest,
-    AddNewTaskResponse, Column,
+    Column,
     InputTarget,
     SelectTarget,
     TextAreaTarget
 } from "../common/commonTypes";
 import {useAppDispatch} from "../hooks/useAppDispatch";
 import {addNewTask} from "../redux/slices/kanbanSlice";
-import {generateRandomMongoId} from "../common/commonUtils";
+import {postNewTask} from "../services/postNewTask";
 
 type AddNewTaskModalProps = {
     columns: Array<Column>,
@@ -40,14 +40,12 @@ export default function AddNewTaskModal({columns, boardId} : AddNewTaskModalProp
             dueDate: dueDate,
         }
 
-        console.log("Saving new ticket:");
-        console.log(requestBody);
-        const savedTask: AddNewTaskResponse = {
-            id: generateRandomMongoId(),
-            ...requestBody
-        };
+        postNewTask(requestBody).then(savedTask => {
+            console.log("Saved task:");
+            console.log(savedTask);
 
-        dispatch(addNewTask(savedTask));
+            dispatch(addNewTask({boardId, columnId, ...savedTask}));
+        });
 
         setShowModal(false);
     };
@@ -134,7 +132,7 @@ export default function AddNewTaskModal({columns, boardId} : AddNewTaskModalProp
                                                 className="text-black border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                             <option value="">Choose priority</option>
                                             <option value="low">Low</option>
-                                            <option value="medium">Normal</option>
+                                            <option value="normal">Normal</option>
                                             <option value="high">High</option>
                                             <option value="urgent">Urgent</option>
                                         </select>
