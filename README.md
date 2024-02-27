@@ -4,7 +4,7 @@ The application consists from two parts - frontend and backend. Frontend uses Re
 with Spring Security in order to provide secure registration and authorization. 
 
 At the state of 09.02.2024, frontend part of Task Manager application is being hosted at:  
-https://task-manager-seven-sigma-46.vercel.app/
+[https://task-manager-nine-swart.vercel.app/](https://task-manager-nine-swart.vercel.app/)
 
 ### Features
 - Create your own account in order to save your boards and tasks, register easily with old plain login and password or more convenient OAuth2 via Google.
@@ -27,8 +27,7 @@ https://task-manager-seven-sigma-46.vercel.app/
 - Spring Boot 3.2.2
 - Spring Web (REST API)
 - Spring Data & Validation
-- Spring Security
-- OAuth2
+- Spring Security (OAuth2, JWT, Cookies, CORS)
 - MongoDB
 - Docker
 - Testcontainers
