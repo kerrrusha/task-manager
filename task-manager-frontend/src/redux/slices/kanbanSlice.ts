@@ -79,14 +79,13 @@ export const kanbanSlice = createSlice({
 
             const prevCol = board.columns.find(col => col.id === dto.prevColumnId);
             assert(prevCol !== undefined, `Can't find such previous column with id=${dto.prevColumnId}`);
-console.log("prevCol.tasks.length", prevCol.tasks.length);
+
             const taskIndex = prevCol.tasks.findIndex(task => task.id === dto.taskId);
             const task = prevCol.tasks[taskIndex];
             prevCol.tasks.splice(taskIndex, 1);
 
-            console.log("prevCol.tasks.length", prevCol.tasks.length);
-            const targetCol = board.columns.find(col => col.id === dto.prevColumnId);
-            assert(targetCol !== undefined, `Can't find such target column with id=${dto.prevColumnId}`);
+            const targetCol = board.columns.find(col => col.id === dto.targetColumnId);
+            assert(targetCol !== undefined, `Can't find such target column with id=${dto.targetColumnId}`);
 
             targetCol.tasks.push(task);
         },
