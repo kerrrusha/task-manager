@@ -13,8 +13,9 @@ export const API_ENDPOINTS = {
     logout: '/auth/logout',
     isAuthorized: '/user/authorized',
     fetchKanban: '/kanban/boards',
+    deleteBoard: '/kanban/boards/delete',
     postNewBoard: '/kanban/boards/new',
     postNewColumn: '/kanban/columns/new',
     postNewTask: '/kanban/tasks/new',
-    deleteBoard: '/kanban/boards/delete',
+    postDragTask: '/kanban/tasks/drag',
 }

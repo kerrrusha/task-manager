@@ -1,8 +1,9 @@
 import KanbanTask from "./KanbanTask";
-import {Column} from "../common/commonTypes";
+import {Column, DragTaskRequest} from "../common/commonTypes";
 import React from "react";
 import {useAppDispatch} from "../hooks/useAppDispatch";
 import {dragTask} from "../redux/slices/kanbanSlice";
+import {postDragTask} from "../services/postDragTask";
 
 interface KanbanColumnProps {
     column: Column,
@@ -17,9 +18,22 @@ export default function KanbanColumn({column, boardId} : KanbanColumnProps) {
             e.dataTransfer.getData("text")
         );
 
-        if (column.id !== prevColId) {
-            dispatch(dragTask({ boardId, targetColId: column.id, prevColId, taskId }));
+        if (column.id === prevColId) {
+            return;
         }
+
+        const requestBody : DragTaskRequest = {
+            boardId: boardId,
+            targetColumnId: column.id,
+            prevColumnId: prevColId,
+            taskId: taskId
+        }
+        postDragTask(requestBody).then(updatedTask => {
+            console.log("Dragged task:");
+            console.log(updatedTask);
+
+            dispatch(dragTask(requestBody));
+        });
     };
 
     const handleOnDragOver = (e : React.DragEvent) => {

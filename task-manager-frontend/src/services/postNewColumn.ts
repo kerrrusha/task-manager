@@ -1,7 +1,7 @@
 import {API_ENDPOINTS} from "../common/constants";
 import {AddNewColumnRequest} from "../common/commonTypes";
 
-export async function postNewColumn(board: AddNewColumnRequest) {
+export async function postNewColumn(requestBody: AddNewColumnRequest) {
     const API_URL = process.env.REACT_APP_BACKEND_ORIGIN;
     const path = API_ENDPOINTS.postNewColumn;
 
@@ -11,7 +11,7 @@ export async function postNewColumn(board: AddNewColumnRequest) {
             'Accept': 'application/json',
         },
         method: 'POST',
-        body: JSON.stringify(board),
+        body: JSON.stringify(requestBody),
         credentials: 'include',
     });
 

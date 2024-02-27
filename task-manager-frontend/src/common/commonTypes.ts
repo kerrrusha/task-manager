@@ -4,10 +4,6 @@ export type InputTarget = {
     target: HTMLInputElement;
 }
 
-export type ButtonTarget = {
-    target: EventTarget;
-}
-
 export type SelectTarget = {
     target: HTMLSelectElement;
 }
@@ -70,6 +66,13 @@ export type DeleteBoardRequest = {
     boardId: string;
 }
 
+export type DragTaskRequest = {
+    boardId: string,
+    targetColumnId: string,
+    prevColumnId: string,
+    taskId: string
+}
+
 export type KanbanState = {
     activeBoardId: string,
     boards: Array<Board>,
@@ -99,13 +102,6 @@ export type Task = {
     assignedTo: string,
     priority: string,
     dueDate: string,
-};
-
-export type DragTaskDto = {
-    boardId: string,
-    targetColId: string,
-    prevColId: string,
-    taskId: string,
 };
 
 export type User = {

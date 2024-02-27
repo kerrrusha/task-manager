@@ -1,7 +1,7 @@
 import {API_ENDPOINTS} from "../common/constants";
 import {AddNewBoardRequest} from "../common/commonTypes";
 
-export async function postNewBoard(board: AddNewBoardRequest) {
+export async function postNewBoard(requestBody: AddNewBoardRequest) {
     const API_URL = process.env.REACT_APP_BACKEND_ORIGIN;
     const path = API_ENDPOINTS.postNewBoard;
 
@@ -11,7 +11,7 @@ export async function postNewBoard(board: AddNewBoardRequest) {
             'Accept': 'application/json',
         },
         method: 'POST',
-        body: JSON.stringify(board),
+        body: JSON.stringify(requestBody),
         credentials: 'include',
     });
 

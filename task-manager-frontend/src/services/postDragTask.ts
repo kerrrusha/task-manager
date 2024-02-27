@@ -1,9 +1,9 @@
 import {API_ENDPOINTS} from "../common/constants";
-import {AddNewTaskRequest} from "../common/commonTypes";
+import {DragTaskRequest} from "../common/commonTypes";
 
-export async function postNewTask(requestBody: AddNewTaskRequest) {
+export async function postDragTask(requestBody: DragTaskRequest) {
     const API_URL = process.env.REACT_APP_BACKEND_ORIGIN;
-    const path = API_ENDPOINTS.postNewTask;
+    const path = API_ENDPOINTS.postDragTask;
 
     const response = await fetch(`${API_URL}${path}`, {
         headers: {

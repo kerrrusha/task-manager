@@ -3,7 +3,7 @@ import {
     AddNewBoardResponse,
     AddNewColumnResponse,
     AddNewTaskResponse,
-    Column, DeleteBoardRequest, DragTaskDto, KanbanBoardsResponse,
+    Column, DeleteBoardRequest, DragTaskRequest, KanbanBoardsResponse,
     KanbanState,
     Task
 } from "../../common/commonTypes";
@@ -67,26 +67,26 @@ export const kanbanSlice = createSlice({
             const deletedBoardIndex = state.boards.findIndex(board => board.id === deleteBoardDto.boardId);
             state.boards.splice(deletedBoardIndex, 1);
             state.activeBoardId = getActiveBoardId({ ...state });
-            console.log("state.activeBoardId", state.activeBoardId);
         },
         setActiveBoardId: (state, action: PayloadAction<string>) => {
             state.activeBoardId = action.payload;
         },
-        dragTask: (state, action: PayloadAction<DragTaskDto>) => {
-            const dto: DragTaskDto = action.payload;
+        dragTask: (state, action: PayloadAction<DragTaskRequest>) => {
+            const dto: DragTaskRequest = action.payload;
 
             const board = state.boards.find((board) => board.id === dto.boardId);
             assert(board !== undefined, `Can't find such board with id=${dto.boardId}`);
 
-            const prevCol = board.columns.find(col => col.id === dto.prevColId);
-            assert(prevCol !== undefined, `Can't find such previous column with id=${dto.prevColId}`);
-
+            const prevCol = board.columns.find(col => col.id === dto.prevColumnId);
+            assert(prevCol !== undefined, `Can't find such previous column with id=${dto.prevColumnId}`);
+console.log("prevCol.tasks.length", prevCol.tasks.length);
             const taskIndex = prevCol.tasks.findIndex(task => task.id === dto.taskId);
             const task = prevCol.tasks[taskIndex];
             prevCol.tasks.splice(taskIndex, 1);
 
-            const targetCol = board.columns.find(col => col.id === dto.targetColId);
-            assert(targetCol !== undefined, `Can't find such target column with id=${dto.targetColId}`);
+            console.log("prevCol.tasks.length", prevCol.tasks.length);
+            const targetCol = board.columns.find(col => col.id === dto.prevColumnId);
+            assert(targetCol !== undefined, `Can't find such target column with id=${dto.prevColumnId}`);
 
             targetCol.tasks.push(task);
         },

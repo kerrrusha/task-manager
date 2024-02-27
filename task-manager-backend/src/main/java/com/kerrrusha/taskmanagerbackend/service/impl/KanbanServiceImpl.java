@@ -9,6 +9,7 @@ import com.kerrrusha.taskmanagerbackend.dto.board.response.BoardResponseDto;
 import com.kerrrusha.taskmanagerbackend.dto.column.request.CreateColumnRequestDto;
 import com.kerrrusha.taskmanagerbackend.dto.column.response.ColumnResponseDto;
 import com.kerrrusha.taskmanagerbackend.dto.task.request.CreateTaskRequestDto;
+import com.kerrrusha.taskmanagerbackend.dto.task.request.DragTaskRequestDto;
 import com.kerrrusha.taskmanagerbackend.dto.task.response.TaskResponseDto;
 import com.kerrrusha.taskmanagerbackend.mapper.BoardMapper;
 import com.kerrrusha.taskmanagerbackend.mapper.ColumnMapper;
@@ -69,6 +70,18 @@ public class KanbanServiceImpl implements KanbanService {
         taskRepository.save(task);
 
         return taskMapper.toDto(task);
+    }
+
+    @Override
+    public TaskResponseDto dragTask(DragTaskRequestDto taskRequestDto, String id) {
+        Task task = taskRepository.findById(taskRequestDto.getTaskId()).orElseThrow();
+        if (!task.getColumnId().equals(taskRequestDto.getPrevColumnId())) {
+            throw new RuntimeException("Task previous column id (" + taskRequestDto.getPrevColumnId() +
+                    ") does not matches with server data");
+        }
+
+        task.setColumnId(taskRequestDto.getTargetColumnId());
+        return taskMapper.toDto(taskRepository.save(task));
     }
 
     @Override
