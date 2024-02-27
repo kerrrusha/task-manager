@@ -45,23 +45,19 @@ public class GoogleOAuthService {
 
     public String authenticate(GoogleOAuthLoginRequestDto requestBody) {
         User user = verifyIDToken(requestBody.getIdToken());
-        user = createOrUpdateUser(user);
+        user = createOrGetUser(user);
         return jwtService.generateToken(user, false);
     }
 
     @Transactional
-    protected User createOrUpdateUser(User user) {
+    protected User createOrGetUser(User user) {
         User existingUser = userRepository.findByEmail(user.getEmail()).orElse(null);
-        if (existingUser == null) {
-            user.setRoles(Collections.singleton(Role.USER));
-            userRepository.save(user);
-            return user;
+        if (existingUser != null) {
+            return existingUser;
         }
-        existingUser.setFirstName(user.getFirstName());
-        existingUser.setLastName(user.getLastName());
-        existingUser.setProfilePhotoUrl(user.getProfilePhotoUrl());
-        userRepository.save(existingUser);
-        return existingUser;
+        user.setRoles(Collections.singleton(Role.USER));
+        userRepository.save(user);
+        return user;
     }
 
     @SneakyThrows
