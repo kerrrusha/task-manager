@@ -14,7 +14,7 @@ At the state of 09.02.2024, frontend part of Task Manager application is being h
 
 ## Used technologies
 
-### Frontend (in progress):
+### Frontend:
 - Typescript
 - React
 - Redux
@@ -22,7 +22,7 @@ At the state of 09.02.2024, frontend part of Task Manager application is being h
 - MaterialUI
 - Bootstrap
 
-### Backend (backlog):
+### Backend:
 - Java 21
 - Spring Boot 3.2.2
 - Spring Web (REST API)
